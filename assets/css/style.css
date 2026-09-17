@@ -1,0 +1,6176 @@
+/* ==========================================================================
+   Terra Sud — Agence de voyages | Feuille de style principale
+   Inspiration design : template Travolo
+   ========================================================================== */
+
+/* ==========================================================================
+   INDEX DES SÉLECTEURS DÉFINIS PLUSIEURS FOIS
+   Le fichier s'est construit par couches : un composant peut être redéfini
+   plus bas pour rester prioritaire face à une autre règle. Cet index dit où.
+   La DERNIÈRE ligne citée est celle qui l'emporte pour les propriétés
+   qu'elle déclare. Régénérer après modification : index_css.py
+   ------------------------------------------------------------------------
+   .hero .search-bar                  L3963  L3979  L3987  L4072  L4106  L4112  L4120  L4125  L4140  L4177
+   .hero-card                         L1516  L2085  L3425  L3437  L3462  L3682  L3707  L3712
+   .hero-cards                        L630  L1512  L1570  L3695  L4038  L4042  L4047
+   .hero                              L580  L3273  L3984  L4078  L4092  L4100
+   .breadcrumb                        L668  L1633  L1729  L4620  L4629
+   .nav a                             L548  L1539  L1685  L4338  L4353
+   .offer                             L886  L1580  L2939  L3390  L3449
+   .about-img .badge-exp              L1298  L3482  L3860  L3924
+   .about-img .badge-exp strong       L1305  L3487  L3866  L3927
+   .bg-smoke                          L280  L2070  L2225  L3292
+   .btn                               L341  L1660  L2889  L3017
+   .feature-icon                      L732  L2006  L2946  L3386
+   .filters-help                      L2375  L2507  L2997  L3949
+   .hero-card-name                    L2111  L2211  L3128  L4221
+   .nav                               L543  L1522  L4335  L4350
+   .search-bar                        L684  L1501  L1574  L2201
+   .tour-tag                          L777  L1952  L2951  L2994
+   .view-list .tour-thumb             L2467  L2483  L3003  L3007
+   .atlas-list                        L3580  L3597  L3756
+   .atlas-svg                         L3514  L3589  L3594
+   .booking-box                       L1216  L1549  L3125
+   .breadcrumb li                     L678  L4625  L4633
+   .contact-card i                    L1347  L2027  L3895
+   .counter strong                    L1312  L1655  L2073
+   .feature                           L716  L1995  L3382
+   .feature h3                        L725  L2000  L3315
+   .filters form                      L2298  L3090  L3150
+   .filters-head h3                   L2311  L3093  L3159
+   .footer-grid                       L1387  L1495  L1583
+   .hero .search-bar select           L4115  L4151  L5629
+   .hero p                            L620  L3285  L3300
+   .hero--compact                     L4085  L4095  L4103
+   .hero::before, .hero::after        L585  L1726  L3270
+   .info-grid                         L1141  L1504  L1577
+   .listing                           L2287  L2490  L2496
+   .nav-toggle                        L570  L1519  L1721
+   .newsletter button                 L1429  L2962  L3888
+   .offer::after                      L892  L2942  L3648
+   .opts                              L2330  L2502  L3096
+   .page-hero                         L658  L1586  L2970
+   .post-date                         L980  L1960  L3839
+   .quote::before                     L922  L2021  L3644
+   .rating-bars li                    L2812  L2848  L3119
+   .row-head                          L3327  L3433  L3442
+   .site-top.stuck                    L384  L1682  L2929
+   .sort select                       L2429  L3110  L5640
+   .tab                               L2716  L2772  L5988
+   .tabs-nav                          L2709  L5963  L5981
+   .ticker-track                      L1862  L1890  L2067
+   .tour-card::before, .post::before  L1939  L2991  L3232
+   .view-list .tour-card              L2464  L2480  L3000
+   .atlas-figures                     L3724  L3747
+   .atlas-figures span+span::before   L3736  L3751
+   .atlas-list a                      L3605  L3759
+   .atlas-list span                   L3622  L3767
+   .atlas-list strong                 L3616  L3763
+   .atlas-split                       L3496  L3585
+   .atlas-svg--zoom                   L4540  L4575
+   .badge-off                         L831  L3260
+   .bg-smoke + .section               L3703  L3719
+   ======================================================================== */
+
+/* ==========================================================================
+   49. POLICES ET ICÔNES — servies par le site, non par un tiers
+   --------------------------------------------------------------------------
+   Le site appelait jusqu'ici deux domaines extérieurs : fonts.googleapis.com
+   pour Jost et Archivo, cdnjs.cloudflare.com pour Font Awesome. Trois défauts :
+   les titres et les icônes disparaissaient si l'un des deux tombait ou était
+   bloqué ; chaque visite prévenait deux serveurs tiers (l'adresse IP du
+   visiteur suffit à en faire une donnée personnelle au sens du RGPD) ; et
+   l'ouverture de la page attendait deux résolutions DNS de plus.
+
+   Tout est désormais dans assets/fonts/.
+   • Jost et Archivo : licence SIL OFL, redistribution libre. Quatre graisses
+     chacune (400, 500, 600, 700) — les seules que la feuille appelle.
+   • Font Awesome 6 Free (CC BY 4.0 pour les icônes, OFL pour la police),
+     RÉDUITE aux 55 icônes réellement employées : 302 Ko → 8 Ko.
+     Pour régénérer après l'ajout d'une icône : voir LISEZ-MOI.
+
+   Attention : ajouter une classe fa-… dans le HTML ne suffit plus, puisque le
+   glyphe doit exister dans le sous-ensemble. Le LISEZ-MOI décrit les deux
+   commandes à relancer.
+   ========================================================================== */
+
+@font-face{
+  font-family:'Jost';
+  src:url('../fonts/jost-500.woff2') format('woff2');
+  font-weight:500;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Jost';
+  src:url('../fonts/jost-600.woff2') format('woff2');
+  font-weight:600;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Jost';
+  src:url('../fonts/jost-700.woff2') format('woff2');
+  font-weight:700;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Archivo';
+  src:url('../fonts/archivo-400.woff2') format('woff2');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Archivo';
+  src:url('../fonts/archivo-500.woff2') format('woff2');
+  font-weight:500;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Archivo';
+  src:url('../fonts/archivo-600.woff2') format('woff2');
+  font-weight:600;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Archivo';
+  src:url('../fonts/archivo-700.woff2') format('woff2');
+  font-weight:700;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* ---------- 49.2 Icônes ---------- */
+@font-face{
+  font-family:'Font Awesome 6 Free';
+  src:url('../fonts/fa-solid.woff2') format('woff2');
+  font-weight:900;
+  font-style:normal;
+  font-display:block;
+}
+@font-face{
+  font-family:'Font Awesome 6 Free';
+  src:url('../fonts/fa-regular.woff2') format('woff2');
+  font-weight:400;
+  font-style:normal;
+  font-display:block;
+}
+@font-face{
+  font-family:'Font Awesome 6 Brands';
+  src:url('../fonts/fa-brands.woff2') format('woff2');
+  font-weight:400;
+  font-style:normal;
+  font-display:block;
+}
+
+/* « bolder » relatif : dans un parent en 600 ou 700, il monte à 900 et le
+   navigateur synthétise une graisse absente du jeu livré. On le borne. */
+strong,b{font-weight:700}
+
+.fa-solid,.fa-regular,.fa-brands{
+  display:inline-block;
+  font-style:normal;
+  font-variant:normal;
+  line-height:1;
+  text-rendering:auto;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.fa-solid{font-family:'Font Awesome 6 Free';font-weight:900}
+.fa-regular{font-family:'Font Awesome 6 Free';font-weight:400}
+.fa-brands{font-family:'Font Awesome 6 Brands';font-weight:400}
+.fa-solid::before,.fa-regular::before,.fa-brands::before{display:inline-block}
+
+/* Les 55 glyphes retenus, par ordre alphabétique. Généré — ne pas éditer à la
+   main : relancer le script du LISEZ-MOI après toute modification du HTML. */
+.fa-angle-right::before{content:"\f105"}
+.fa-arrow-right::before{content:"\f061"}
+.fa-arrow-up::before{content:"\f062"}
+.fa-bars::before{content:"\f0c9"}
+.fa-bed::before{content:"\f236"}
+.fa-calendar::before{content:"\f133"}
+.fa-calendar-day::before{content:"\f783"}
+.fa-car::before{content:"\f1b9"}
+.fa-check::before{content:"\f00c"}
+.fa-chevron-down::before{content:"\f078"}
+.fa-circle-check::before{content:"\f058"}
+.fa-circle-info::before{content:"\f05a"}
+.fa-circle-xmark::before{content:"\f057"}
+.fa-clock::before{content:"\f017"}
+.fa-envelope::before{content:"\f0e0"}
+.fa-facebook-f::before{content:"\f39e"}
+.fa-folder::before{content:"\f07b"}
+.fa-gauge-high::before{content:"\f625"}
+.fa-globe::before{content:"\f0ac"}
+.fa-handshake::before{content:"\f2b5"}
+.fa-headset::before{content:"\f590"}
+.fa-heart::before{content:"\f004"}
+.fa-hippo::before{content:"\f6ed"}
+.fa-hotel::before{content:"\f594"}
+.fa-id-card::before{content:"\f2c2"}
+.fa-instagram::before{content:"\f16d"}
+.fa-language::before{content:"\f1ab"}
+.fa-list::before{content:"\f03a"}
+.fa-location-dot::before{content:"\f3c5"}
+.fa-lock::before{content:"\f023"}
+.fa-magnifying-glass::before{content:"\f002"}
+.fa-minus::before{content:"\f068"}
+.fa-mountain::before{content:"\f6fc"}
+.fa-paper-plane::before{content:"\f1d8"}
+.fa-people-group::before{content:"\e533"}
+.fa-person-hiking::before{content:"\f6ec"}
+.fa-person-walking::before{content:"\f554"}
+.fa-phone::before{content:"\f095"}
+.fa-plus::before{content:"\2b"}
+.fa-rotate-left::before{content:"\f2ea"}
+.fa-route::before{content:"\f4d7"}
+.fa-seedling::before{content:"\f4d8"}
+.fa-shield-heart::before{content:"\e574"}
+.fa-snowflake::before{content:"\f2dc"}
+.fa-star::before{content:"\f005"}
+.fa-sun::before{content:"\f185"}
+.fa-table-cells-large::before{content:"\f009"}
+.fa-user::before{content:"\f007"}
+.fa-user-group::before{content:"\f500"}
+.fa-user-shield::before{content:"\f505"}
+.fa-utensils::before{content:"\f2e7"}
+.fa-van-shuttle::before{content:"\f5b6"}
+.fa-whatsapp::before{content:"\f232"}
+.fa-wifi::before{content:"\f1eb"}
+
+/* ---------- 1. Variables ---------- */
+:root{
+  --primary:#b4512d;        /* 5,05:1 sur blanc, 4,60:1 sur --smoke : AA acquis dans les deux sens */
+  --primary-dark:#a34728;
+  --primary-soft:#f3f3f4;
+  --primary-soft-2:#ebebed;
+  --accent:#1b1d2a;
+  --accent-dark:#b4512d;
+  --secondary:#1b1d2a;
+  --title:#1b1d2a;
+  --body:#5c5a57;
+  --muted:#6f6a64;          /* gris chaud secondaire, 5,36:1 sur blanc */
+  --muted-cool:#63666f;     /* gris froid des libelles de formulaire, 5,74:1 */
+  --smoke:#f4f4f5;
+  --yellow:#d9962b;
+  --border:#dcdcde;
+  --line:#e4e4e6;
+  --white:#fff;
+  --cream:#f2e4d5;
+  --container:1220px;
+  --radius-sm:0;
+  --radius:0;
+  --radius-lg:0;
+  --shadow-sm:0 6px 20px rgba(17,19,48,.06);
+  --shadow:0 14px 40px rgba(17,19,48,.10);
+  --shadow-lg:0 24px 60px rgba(255,104,26,.18);
+  --section:110px;
+  --ease:cubic-bezier(.2,0,0,1);
+}
+/* ---------- 2. Reset & base ---------- */
+*, *::before, *::after{
+  box-sizing:border-box;
+}
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+  overflow-x:hidden;
+}
+body{
+  margin:0;
+  font-family:var(--font);
+  font-size:16px;
+  line-height:1.75;
+  color:var(--body);
+  background:#ffffff;
+  overflow-x:hidden;
+}
+img{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+a{
+  color:inherit;
+  text-decoration:none;
+  transition:color .3s var(--ease);
+}
+ul{
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+button, input, select, textarea{
+  font:inherit;
+  color:inherit;
+}
+h1, h2, h3, h4, h5, h6{
+  margin:0 0 .6em;
+  font-family:var(--font);
+  color:var(--title);
+  font-weight:700;
+  line-height:1.25;
+}
+h3{
+  font-size:clamp(20px,2.2vw,26px);
+}
+h4{
+  font-size:20px;
+}
+h5{
+  font-size:18px;
+}
+h6{
+  font-size:16px;
+}
+p{
+  margin:0 0 1em;
+}
+p:last-child{
+  margin-bottom:0;
+}
+/* ---------- 3. Layout ---------- */
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin-inline:auto;
+  padding-inline:20px;
+}
+.section{
+  padding-block:var(--section);
+}
+.section-sm{
+  padding-block:80px;
+}
+.bg-smoke{
+  background:var(--smoke);
+}
+.bg-soft{
+  background:linear-gradient(180deg,var(--primary-soft) 0%,var(--primary-soft-2) 100%);
+}
+.row{
+  display:grid;
+  gap:30px;
+}
+.g-2{
+  grid-template-columns:repeat(2,1fr);
+}
+.g-3{
+  grid-template-columns:repeat(3,1fr);
+}
+.g-4{
+  grid-template-columns:repeat(4,1fr);
+}
+.text-center{
+  text-align:center;
+}
+.mb-40{
+  margin-bottom:40px;
+}
+.mb-60{
+  margin-bottom:60px;
+}
+/* ---------- 4. Titres de section ---------- */
+.sec-sub{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:var(--primary);
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  font-size:14px;
+  margin-bottom:12px;
+}
+.sec-sub::before, .sec-sub::after{
+  content:"";
+  width:26px;
+  height:2px;
+  background:var(--primary);
+  opacity:.6;
+}
+.text-center .sec-title{
+  margin-inline:auto;
+}
+.sec-title{
+  margin-bottom:16px;
+}
+.sec-text{
+  max-width:660px;
+  margin-inline:auto;
+}
+.text-left .sec-text{
+  margin-inline:0;
+}
+/* ---------- 5. Boutons ---------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border-radius:0;
+  border:2px solid transparent;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.btn-accent:hover{
+  box-shadow:0 20px 40px rgba(55,212,217,.28);
+}
+.btn-white{
+  background:#fff;
+  color:var(--primary);
+}
+.btn-white:hover{
+  background:var(--secondary);
+  color:#fff;
+}
+.btn-block{
+  width:100%;
+}
+.link-more{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--primary);
+}
+.link-more:hover{
+  gap:14px;
+  color:var(--primary-dark);
+}
+/* ---------- 6. Bloc supérieur (transparent au-dessus du héro) ---------- */
+.site-top{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  transition:background .35s var(--ease),box-shadow .35s var(--ease);
+}
+.site-top.stuck{
+  position:fixed;
+  animation:slideDown .35s var(--ease);
+}
+.site-top.stuck .topbar{
+  display:none;
+}
+.site-top.stuck .header .container{
+  min-height:72px;
+}
+@keyframes slideDown{from{transform:translateY(-100%)}to{transform:none}}
+.topbar{
+  border-bottom:1px solid rgba(255,255,255,.18);
+  font-size:14px;
+  color:#fff;
+}
+.topbar .container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  min-height:52px;
+}
+.topbar-info{
+  display:flex;
+  align-items:center;
+  gap:26px;
+  flex-wrap:wrap;
+}
+.topbar-info a{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:#fff;
+  font-weight:500;
+}
+.topbar-info a:hover{
+  color:var(--primary);
+}
+.topbar-info i{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+}
+.topbar-right{
+  display:flex;
+  align-items:center;
+  gap:22px;
+}
+.topbar-social{
+  display:flex;
+  gap:16px;
+}
+.topbar-social a{
+  color:#fff;
+  font-size:14px;
+}
+.topbar-social a:hover{
+  color:var(--primary);
+}
+/* ---------- 6b. Sélecteur de langue ---------- */
+.lang-switch{
+  position:relative;
+}
+.lang-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  color:#fff;
+  border:0;
+  padding:9px 18px;
+  border-radius:0;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .3s var(--ease);
+}
+.lang-caret{
+  font-size:10px;
+  transition:transform .3s var(--ease);
+}
+.lang-switch.open .lang-caret{
+  transform:rotate(180deg);
+}
+.lang-menu{
+  position:absolute;
+  top:calc(100% + 10px);
+  right:0;
+  min-width:186px;
+  background:#fff;
+  border-radius:var(--radius-sm);
+  box-shadow:var(--shadow);
+  padding:8px;
+  z-index:130;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-8px);
+  transition:opacity .28s var(--ease),transform .28s var(--ease),visibility .28s;
+}
+.lang-switch.open .lang-menu{
+  opacity:1;
+  visibility:visible;
+  transform:none;
+}
+.lang-menu li+li{
+  margin-top:2px;
+}
+.lang-menu button{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:none;
+  border:0;
+  padding:10px 14px;
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  color:var(--title);
+  font-weight:500;
+  font-size:15px;
+  text-align:left;
+  transition:all .25s var(--ease);
+}
+.lang-menu button:hover{
+  background:var(--primary-soft);
+  color:var(--primary);
+}
+.lang-menu button.is-current{
+  color:var(--primary);
+  font-weight:600;
+}
+.lang-menu button.is-current::after{
+  content:"\f00c";
+  font-family:"Font Awesome 6 Free";
+  font-weight:900;
+  font-size:11px;
+}
+/* ---------- 7. En-tête ---------- */
+.header .container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  min-height:88px;
+  position:relative;
+}
+.logo{
+  display:inline-flex;
+  align-items:center;
+  line-height:1;
+}
+.logo img{
+  height:42px;
+  width:auto;
+}
+.nav{
+  display:flex;
+  align-items:center;
+  gap:32px;
+}
+.nav a{
+  color:#fff;
+  position:relative;
+  padding-block:6px;
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  height:2px;
+  width:0;
+  transition:width .3s var(--ease);
+}
+.nav a:hover::after, .nav a.active::after{
+  width:100%;
+}
+.header-cta{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.nav-toggle{
+  display:none;
+  width:46px;
+  height:46px;
+  border-radius:0;
+  border:0;
+  font-size:18px;
+  cursor:pointer;
+}
+/* ---------- 8. Héro ---------- */
+.hero{
+  position:relative;
+  z-index:2;
+  color:#fff;
+}
+.hero::before, .hero::after{
+  position:absolute;
+  border-radius:50%;
+  border:2px dashed rgba(255,255,255,.22);
+}
+.hero::before{
+  width:280px;
+  height:280px;
+  top:40px;
+  left:-90px;
+  pointer-events:none;
+}
+.hero::after{
+  width:180px;
+  height:180px;
+  bottom:180px;
+  right:-60px;
+  pointer-events:none;
+}
+.hero-art{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  max-width:860px;
+  margin-inline:auto;
+}
+.hero h1{
+  margin-bottom:22px;
+  color:#fff;
+}
+.hero p{
+  margin-bottom:32px;
+  color:rgba(255,255,255,.88);
+}
+.hero .sec-sub{
+  color:#ffb98c;
+}
+.hero .sec-sub::before, .hero .sec-sub::after{
+  background:#ffb98c;
+}
+.hero-cards{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  transform:translateY(60px);
+  z-index:3;
+}
+.hero-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .6s var(--ease);
+}
+.hero-card:hover img{
+  transform:scale(1.08);
+}
+.hero-card figcaption{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:26px 20px 18px;
+  color:#fff;
+  font-weight:600;
+  background:linear-gradient(180deg,rgba(17,19,48,0) 0%,rgba(17,19,48,.78) 100%);
+  text-align:center;
+}
+/* ---------- 9. Bandeau de page interne ---------- */
+.page-hero{
+  position:relative;
+  padding-block:200px 110px;
+  text-align:center;
+  color:#fff;
+}
+.page-hero h1{
+  color:#fff;
+  margin-bottom:12px;
+}
+.breadcrumb{
+  display:flex;
+  gap:12px;
+  font-weight:500;
+}
+.breadcrumb li+li::before{
+  content:"/";
+  margin-right:12px;
+  opacity:.6;
+}
+.breadcrumb li{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+/* ---------- 10. Barre de recherche ---------- */
+.search-bar{
+  background:#fff;
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);
+  padding:22px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr) auto;
+  gap:18px;
+  align-items:end;
+}
+.field label{
+  display:block;
+  margin-bottom:6px;
+}
+.field input, .field select, .field textarea{
+  width:100%;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:var(--smoke);
+  outline:0;
+  transition:border-color .3s;
+}
+.field input:focus, .field select:focus, .field textarea:focus{
+  border-color:var(--primary);
+  background:#fff;
+}
+.field textarea{
+  min-height:140px;
+  resize:vertical;
+}
+/* ---------- 11. Cartes services ---------- */
+.feature{
+  border-radius:var(--radius-lg);
+  position:relative;
+  overflow:hidden;
+  transition:transform .4s var(--ease);
+}
+.feature:hover{
+  transform:translateY(-8px);
+}
+.feature h3{
+  margin-bottom:10px;
+}
+.feature p{
+  font-size:15px;
+  margin:0;
+}
+.feature-icon{
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  position:relative;
+}
+.feature-icon::after{
+  content:"";
+  position:absolute;
+  right:-4px;
+  bottom:6px;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:var(--accent);
+  border:3px solid #fff;
+}
+/* ---------- 12. Carte circuit ---------- */
+.tour-card{
+  background:#fff;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  border:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
+}
+.tour-card:hover{
+  transform:translateY(-8px);
+}
+.tour-thumb{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:16/11;
+}
+.tour-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .6s var(--ease);
+}
+.tour-card:hover .tour-thumb img{
+  transform:scale(1.07);
+}
+.tour-tag{
+  position:absolute;
+  padding:5px 14px;
+  font-size:12px;
+  font-weight:600;
+  text-transform:uppercase;
+}
+.tour-fav{
+  position:absolute;
+  top:16px;
+  right:16px;
+  width:36px;
+  height:36px;
+  background:#fff;
+  color:var(--primary);
+  place-items:center;
+  font-size:14px;
+}
+.tour-body{
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.tour-body h3{
+  font-size:20px;
+  margin:0;
+}
+.tour-body h3 a:hover{
+  color:var(--primary);
+}
+.tour-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 20px;
+  font-size:14px;
+}
+.tour-meta span{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+}
+.tour-meta i{
+  color:var(--primary);
+}
+.tour-price-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-top:16px;
+  border-top:1px solid var(--line);
+  margin-top:auto;
+}
+.badge-off{
+  font-weight:600;
+}
+.price{
+  font-weight:700;
+  line-height:1;
+}
+.price small{
+  display:block;
+  color:var(--muted);
+  text-decoration:line-through;
+}
+.stars{
+  font-size:13px;
+  display:inline-flex;
+  gap:2px;
+}
+.stars em{
+  font-style:normal;
+  color:var(--body);
+  margin-left:6px;
+  font-size:13px;
+}
+/* ---------- 13. Destinations ---------- */
+.dest{
+  position:relative;
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.dest img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .6s var(--ease);
+}
+.dest:hover img{
+  transform:scale(1.08);
+}
+.dest-body{
+  position:absolute;
+  inset:auto 0 0 0;
+  padding:28px 22px 24px;
+  color:#fff;
+  background:linear-gradient(180deg,rgba(17,19,48,0),rgba(17,19,48,.85));
+}
+.dest-body h3{
+  color:#fff;
+  font-size:21px;
+  margin-bottom:2px;
+}
+.dest-body span{
+  font-size:14px;
+  color:#ffd9c2;
+}
+/* ---------- 14. Offre / CTA ---------- */
+.offer{
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  color:#fff;
+  position:relative;
+}
+.offer::after{
+  position:absolute;
+  right:-60px;
+  top:-60px;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+}
+.offer h2{
+  color:#fff;
+  position:relative;
+  z-index:2;
+}
+.offer p{
+  position:relative;
+  z-index:2;
+}
+.offer .btn{
+  position:relative;
+  z-index:2;
+}
+/* ---------- 15. Témoignages ---------- */
+.quote{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:32px;
+  box-shadow:var(--shadow-sm);
+  position:relative;
+}
+.quote::before{
+  position:absolute;
+  right:26px;
+  top:6px;
+  line-height:1;
+}
+.quote p{
+  font-size:15px;
+  margin-bottom:22px;
+}
+.quote-author{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.quote-author img{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  object-fit:cover;
+}
+.quote-author h4{
+  margin:0;
+  font-size:17px;
+}
+.quote-author span{
+  font-size:13px;
+  color:var(--primary);
+}
+/* ---------- 16. Blog ---------- */
+.post{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
+  display:flex;
+  flex-direction:column;
+}
+.post:hover{
+  transform:translateY(-8px);
+  box-shadow:var(--shadow);
+}
+.post-thumb{
+  aspect-ratio:16/10;
+  overflow:hidden;
+  position:relative;
+}
+.post-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .6s var(--ease);
+}
+.post:hover .post-thumb img{
+  transform:scale(1.07);
+}
+.post-date{
+  position:absolute;
+  text-align:center;
+  line-height:1.1;
+  font-weight:700;
+}
+.post-date small{
+  display:block;
+  font-size:11px;
+  font-weight:500;
+  text-transform:uppercase;
+}
+.post-body{
+  padding:24px;
+  flex:1;
+}
+.post-meta{
+  display:flex;
+  gap:18px;
+  font-size:13px;
+  color:var(--muted);
+}
+.post-meta i{
+  color:var(--primary);
+  margin-right:6px;
+}
+.post-body h3{
+  font-size:21px;
+  margin:0;
+}
+.post-body h3 a:hover{
+  color:var(--primary);
+}
+.post-body .link-more{
+  margin-top:auto;
+}
+/* ---------- 17. Barre latérale ---------- */
+.sidebar{
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+}
+.widget{
+  background:var(--smoke);
+  border-radius:var(--radius);
+  padding:28px;
+}
+.widget h4{
+  margin-bottom:20px;
+  position:relative;
+  padding-bottom:12px;
+}
+.widget h4::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:40px;
+  height:3px;
+}
+.widget-search{
+  display:flex;
+  gap:10px;
+}
+.widget-search input{
+  flex:1;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:#fff;
+  outline:0;
+}
+.widget-search button{
+  border:0;
+  background:var(--primary);
+  color:#fff;
+  border-radius:var(--radius-sm);
+  padding-inline:16px;
+  cursor:pointer;
+}
+.widget-list li+li{
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+}
+.widget-list a{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-weight:500;
+  color:var(--title);
+}
+.widget-list a:hover{
+  color:var(--primary);
+}
+.widget-post{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+.widget-post+.widget-post{
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+.widget-post img{
+  width:78px;
+  height:70px;
+  object-fit:cover;
+  flex:none;
+}
+.widget-post h5{
+  margin:0 0 4px;
+  font-size:15px;
+  line-height:1.4;
+}
+.widget-post span{
+  font-size:12px;
+  color:var(--primary);
+}
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.tags a{
+  background:#fff;
+  border:1px solid var(--line);
+  padding:7px 16px;
+  font-size:13px;
+}
+.tags a:hover{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+/* ---------- 18. Détails circuit ---------- */
+.gallery{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:16px;
+  margin-bottom:40px;
+  align-items:stretch;
+}
+.gallery img{
+  border-radius:var(--radius);
+  height:100%;
+  width:100%;
+  object-fit:cover;
+}
+.gallery>img{
+  aspect-ratio:4/3;
+}
+.gallery-side{
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  gap:16px;
+}
+.gallery-side img{
+  min-height:120px;
+}
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:40px;
+}
+.info-box{
+  background:var(--smoke);
+  border-radius:var(--radius);
+  padding:22px;
+  text-align:center;
+}
+.info-box i{
+  color:var(--primary);
+  font-size:22px;
+  margin-bottom:8px;
+  display:block;
+}
+.info-box strong{
+  display:block;
+  color:var(--title);
+}
+.info-box span{
+  font-size:13px;
+}
+.itinerary{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.itinerary details+details{
+  border-top:1px solid var(--line);
+}
+.itinerary summary{
+  padding:18px 22px;
+  cursor:pointer;
+  font-weight:600;
+  color:var(--title);
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:#fff;
+  transition:background .3s;
+}
+.itinerary summary::-webkit-details-marker{
+  display:none;
+}
+.itinerary summary::before{
+  content:"\f067";
+  font-family:"Font Awesome 6 Free";
+  font-weight:900;
+  font-size:12px;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  flex:none;
+}
+.itinerary details[open] summary{
+  background:var(--smoke);
+}
+.itinerary details[open] summary::before{
+  content:"\f068";
+}
+.itinerary .day{
+  color:var(--primary);
+  margin-right:6px;
+}
+.itinerary p{
+  padding:0 22px 20px 62px;
+  margin:0;
+  font-size:15px;
+}
+.booking-box{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:28px;
+  box-shadow:var(--shadow-sm);
+  position:sticky;
+  top:110px;
+}
+.booking-price{
+  border-bottom:1px solid var(--line);
+  padding-bottom:18px;
+  margin-bottom:20px;
+}
+.booking-price .price{
+  font-size:34px;
+}
+.check-list li{
+  font-size:15px;
+}
+.check-list li+li{
+  margin-top:12px;
+}
+.check-list .no i{
+  color:#d9534f;
+}
+/* ---------- 19. Filtres listing ---------- */
+.filter-bar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--smoke);
+  border-radius:var(--radius);
+  padding:18px 22px;
+  margin-bottom:40px;
+}
+.filter-bar .chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.chip{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:8px 18px;
+  font-size:14px;
+  cursor:pointer;
+  transition:all .3s;
+}
+.chip:hover, .chip.active{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+.pagination{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:50px;
+}
+.pagination a{
+  width:46px;
+  height:46px;
+  display:grid;
+  place-items:center;
+  background:var(--smoke);
+  font-weight:600;
+  color:var(--title);
+}
+.pagination a:hover, .pagination a.active{
+  background:var(--primary);
+  color:#fff;
+}
+/* ---------- 20. À propos / compteurs ---------- */
+.about-img{
+  position:relative;
+}
+.about-img img{
+  border-radius:var(--radius-lg);
+}
+.about-img .badge-exp{
+  position:absolute;
+  right:-18px;
+  bottom:30px;
+  border-radius:var(--radius);
+  text-align:center;
+}
+.about-img .badge-exp strong{
+  display:block;
+  line-height:1;
+}
+.counter{
+  text-align:center;
+}
+.counter strong{
+  display:block;
+  color:var(--primary);
+  line-height:1;
+  font-weight:700;
+}
+.counter span{
+  font-weight:500;
+  color:var(--title);
+}
+.team img{
+  border-radius:var(--radius);
+  aspect-ratio:1/1;
+  object-fit:cover;
+  margin-bottom:16px;
+}
+.team h4{
+  margin-bottom:2px;
+}
+.team span{
+  color:var(--primary);
+  font-size:14px;
+}
+/* ---------- 21. Contact ---------- */
+.contact-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:30px;
+  box-shadow:var(--shadow-sm);
+  transition:transform .4s var(--ease);
+}
+.contact-card:hover{
+  transform:translateY(-6px);
+}
+.contact-card i{
+  width:66px;
+  height:66px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  margin:0 auto 18px;
+}
+.contact-card h4{
+  margin-bottom:6px;
+}
+.map-frame{
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  line-height:0;
+  box-shadow:var(--shadow-sm);
+}
+.map-frame iframe{
+  width:100%;
+  height:420px;
+  border:0;
+}
+/* ---------- 22. Pied de page ---------- */
+.footer{
+  color:rgba(255,255,255,.72);
+  padding-top:90px;
+}
+.footer h4{
+  color:#fff;
+  margin-bottom:24px;
+  font-size:19px;
+}
+.footer a:hover{
+  color:var(--primary);
+}
+.footer-logo img{
+  height:48px;
+  width:auto;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1.3fr;
+  gap:40px;
+  padding-bottom:60px;
+}
+.footer-list li+li{
+  margin-top:12px;
+}
+.footer-list a{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.footer-list i{
+  color:var(--primary);
+  font-size:12px;
+}
+.footer-contact li{
+  display:flex;
+  gap:14px;
+  margin-bottom:16px;
+}
+.footer-contact i{
+  margin-top:6px;
+}
+.newsletter{
+  display:flex;
+  gap:10px;
+  margin-top:18px;
+}
+.newsletter input{
+  flex:1;
+  padding:13px 16px;
+  border:0;
+  outline:0;
+  background:rgba(255,255,255,.1);
+  color:#fff;
+}
+.newsletter input::placeholder{
+  color:rgba(255,255,255,.5);
+}
+.newsletter button{
+  border:0;
+  padding-inline:22px;
+  cursor:pointer;
+}
+.social{
+  display:flex;
+  gap:12px;
+  margin-top:22px;
+}
+.social a{
+  width:40px;
+  height:40px;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  display:grid;
+  place-items:center;
+}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.12);
+  padding-block:24px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:space-between;
+  font-size:14px;
+}
+/* ---------- 23. Retour en haut ---------- */
+.to-top{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  width:48px;
+  height:48px;
+  border:0;
+  font-size:16px;
+  cursor:pointer;
+  z-index:90;
+  opacity:0;
+  visibility:hidden;
+  transition:all .35s var(--ease);
+  box-shadow:var(--shadow);
+}
+.to-top.show{
+  opacity:1;
+  visibility:visible;
+}
+/* ---------- 24. Animations d'entrée ---------- */
+.reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);
+}
+.reveal.in{
+  opacity:1;
+  transform:none;
+}
+/* ---------- 24b. Fond de repli des visuels (si une image tarde ou manque) ---------- */
+.hero-card, .tour-thumb, .dest, .post-thumb, .about-img img, .team img, .gallery img, .widget-post img{
+  background:linear-gradient(135deg,#ffe3d1 0%,#ffd0b3 50%,#d9f4f5 100%);
+}
+/* ---------- 25. Responsive ---------- */
+@media (max-width:1100px){
+  :root{
+    --section:80px;
+  }
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .g-4{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .search-bar{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .info-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+@media (max-width:991px){
+  .g-3{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .hero-cards{
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  .hero-card{
+    height:230px;
+  }
+  .nav-toggle{
+    display:block;
+  }
+  .nav{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:var(--secondary);
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:10px 20px 20px;
+    box-shadow:var(--shadow);
+    border-radius:0 0 var(--radius) var(--radius);
+    display:none;
+  }
+  .nav.open{
+    display:flex;
+  }
+  .nav a{
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .header-cta .btn{
+    display:none;
+  }
+  .gallery{
+    grid-template-columns:1fr;
+  }
+  .booking-box{
+    position:static;
+  }
+}
+@media (max-width:767px){
+  :root{
+    --section:64px;
+  }
+  .g-2, .g-3, .g-4, .row{
+    grid-template-columns:1fr;
+  }
+  .topbar-info, .topbar-social{
+    display:none;
+  }
+  .topbar .container{
+    justify-content:flex-end;
+    min-height:44px;
+  }
+  .site-top.stuck .header .container{
+    min-height:64px;
+  }
+  .hero-cards{
+    grid-template-columns:1fr;
+    transform:translateY(40px);
+  }
+  .search-bar{
+    grid-template-columns:1fr;
+  }
+  .info-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .offer{
+    padding:44px 26px;
+  }
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+  .page-hero{
+    padding-block:130px 70px;
+  }
+}
+/* ==========================================================================
+   26. IDENTITÉ TERRA SUD — direction « Majorelle »
+   Jost (titres) + Archivo (texte et données).
+   Placement chromatique : fond blanc cassé dominant, aplats bleu Majorelle
+   pour les zones de navigation et d'action, ocre safran en unique rehaut.
+   ========================================================================== */
+/* ---------- 26.1 Typographie ---------- */
+:root{
+  --font:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --font-display:'Jost','Archivo',system-ui,sans-serif;
+  --font-data:'Archivo',sans-serif;
+  --contour-dark:url('../img/contours-dark.svg');
+  --contour-light:url('../img/contours-light.svg');
+}
+h4, h5, h6{
+  font-family:var(--font);
+  font-weight:600;
+  letter-spacing:-.01em;
+}
+.sec-title{
+  max-width:740px;
+}
+/* Données chiffrées et étiquettes : Archivo en capitales espacées,
+   chiffres tabulaires pour que les prix s'alignent. */
+.tour-meta, .post-meta, .breadcrumb, .stars em, .info-box span, .footer-bottom, .widget-post span, .tour-tag, .badge-off, .chip, .tags a, .pagination a, .field label, .quote-author span, .dest-body span, .lang-btn, .team span, .nav a, .btn, .link-more, .eyebrow, .coords, .ticker-track, .stamp, .post-date, .itinerary .day{
+  font-family:var(--font-data);
+  font-variant-numeric:tabular-nums;
+}
+.price, .counter strong, .info-box strong{
+  font-family:var(--font-display);
+  font-variant-numeric:tabular-nums;
+  font-weight:600;
+}
+.field label{
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted-cool);
+  font-weight:600;
+}
+.tour-meta, .post-meta{
+  font-size:13px;
+}
+.breadcrumb{
+  font-size:12px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+.chip, .tags a{
+  font-size:12px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-weight:500;
+}
+.tour-tag, .badge-off{
+  font-size:11px;
+  letter-spacing:.12em;
+  font-weight:600;
+}
+.dest-body span, .quote-author span, .team span{
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.counter strong{
+  font-size:48px;
+  letter-spacing:-.02em;
+}
+/* ---------- 26.2 Boutons ---------- */
+.btn{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.18em;
+  padding:15px 30px;
+  box-shadow:none;
+}
+.btn-outline:hover, .btn-white:hover{
+  background:var(--primary);
+  color:#fff;
+}
+.btn-sm{
+  padding:11px 20px;
+  font-size:11px;
+}
+.link-more{
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+/* ---------- 26.3 Navigation : aplat Majorelle, rehaut safran ---------- */
+.site-top.stuck{
+  box-shadow:0 6px 30px rgba(20,22,32,.22);
+}
+.nav a{
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:500;
+}
+.nav a::after{
+  background:var(--cream);
+}
+.nav a:hover, .nav a.active{
+  color:var(--cream);
+}
+.topbar-info a:hover, .topbar-social a:hover{
+  color:var(--cream);
+}
+.header-cta .btn{
+  background:var(--cream);
+  color:var(--secondary);
+}
+.header-cta .btn:hover{
+  background:var(--primary);
+  color:#fff;
+}
+.lang-btn{
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  background:rgba(255,255,255,.14);
+}
+.lang-btn:hover{
+  background:var(--cream);
+  color:var(--secondary);
+}
+.site-top.stuck .lang-btn{
+  background:rgba(255,255,255,.16);
+}
+.nav-toggle{
+  background:var(--cream);
+  color:var(--secondary);
+}
+/* ---------- 26.4 Héro et bandeaux : voile bleuté, pas noir ---------- */
+.hero::before, .hero::after{
+  border-color:rgba(255,255,255,.2);
+}
+.breadcrumb{
+  color:rgba(255,255,255,.62);
+}
+.breadcrumb a:hover{
+  color:var(--cream);
+}
+/* ---------- 26.5 Sur-titre numéroté ---------- */
+body{
+  counter-reset:sec;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--primary);
+  margin-bottom:20px;
+}
+.eyebrow::before{
+  color:var(--title);
+  opacity:.38;
+  letter-spacing:.08em;
+}
+.eyebrow::after{
+  content:"";
+  width:54px;
+  height:1px;
+  background:currentColor;
+  opacity:.45;
+}
+.hero .eyebrow, .offer .eyebrow, .page-hero .eyebrow{
+  color:var(--cream);
+}
+.hero .eyebrow::before, .offer .eyebrow::before, .page-hero .eyebrow::before{
+  color:#fff;
+  opacity:.6;
+}
+/* ---------- 26.6 Jalon d'itinéraire ---------- */
+.route-node{
+  position:relative;
+  height:88px;
+  margin-bottom:6px;
+}
+.route-node::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  width:1px;
+  height:68px;
+  background:repeating-linear-gradient(to bottom,var(--primary) 0 5px,transparent 5px 12px);
+}
+.route-node::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:64px;
+  width:11px;
+  height:11px;
+  transform:translateX(-50%) rotate(45deg);
+  border:1px solid var(--primary);
+  background:#fff;
+}
+/* ---------- 26.7 Courbes de niveau ---------- */
+.footer{
+  position:relative;
+  overflow:hidden;
+  background:var(--secondary);
+}
+.footer::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--contour-light) center/1300px auto no-repeat;
+  opacity:.5;
+  pointer-events:none;
+}
+.footer .container{
+  position:relative;
+  z-index:2;
+}
+.footer a:hover, .footer-list i{
+  color:var(--primary);
+}
+.footer-contact i{
+  color:var(--primary);
+}
+.page-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--contour-light) center/1200px auto no-repeat;
+  pointer-events:none;
+}
+.page-hero .container{
+  position:relative;
+  z-index:2;
+}
+/* ---------- 26.8 Coordonnées ---------- */
+.coords{
+  display:flex;
+  width:100%;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px 22px;
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.6);
+  margin-bottom:30px;
+}
+.coords span{
+  display:inline-flex;
+  align-items:center;
+  gap:22px;
+}
+.coords span+span::before{
+  content:"";
+  width:5px;
+  height:5px;
+  background:var(--cream);
+  transform:rotate(45deg);
+}
+/* ---------- 26.9 Bandeau défilant ---------- */
+.ticker{
+  color:#fff;
+  overflow:hidden;
+  padding-block:17px;
+  border:0;
+}
+.ticker-track{
+  display:flex;
+  width:max-content;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  animation:ticker 46s linear infinite;
+}
+.ticker-track span{
+  display:inline-flex;
+  align-items:center;
+  gap:30px;
+  padding-inline:15px;
+  white-space:nowrap;
+}
+.ticker-track span::after{
+  content:"";
+  width:6px;
+  height:6px;
+  transform:rotate(45deg);
+  flex:none;
+}
+.ticker:hover .ticker-track{
+  animation-play-state:paused;
+}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .ticker-track{
+    animation:none;
+  }
+}
+/* ---------- 26.10 Tampon ---------- */
+.stamp{
+  position:absolute;
+  right:46px;
+  top:50%;
+  transform:translateY(-50%) rotate(-11deg);
+  width:158px;
+  height:158px;
+  display:grid;
+  place-content:center;
+  gap:3px;
+  text-align:center;
+  border:2px solid rgba(242,228,213,.42);
+  outline:1px solid rgba(242,228,213,.42);
+  outline-offset:5px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.2em;
+  pointer-events:none;
+  z-index:3;
+}
+.stamp strong{
+  font-family:var(--font-display);
+  font-size:19px;
+  color:rgba(255,255,255,.8);
+}
+.stamp em{
+  font-style:normal;
+  font-size:8px;
+  letter-spacing:.16em;
+}
+@media (max-width:1199px){
+  .stamp{
+    display:none;
+  }
+}
+/* ---------- 26.11 Cartes : index N°, étiquettes, prix ---------- */
+.row{
+  counter-reset:item;
+}
+.tour-card, .post{
+  position:relative;
+}
+.tour-card::before, .post::before{
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:4;
+  background:var(--secondary);
+  color:#fff;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.14em;
+  padding:7px 11px;
+}
+.tour-tag{
+  top:0;
+  right:0;
+  left:auto;
+}
+.tour-fav{
+  display:none;
+}
+.post-date{
+  left:auto;
+  right:0;
+  bottom:0;
+  padding:9px 13px;
+}
+.price{
+  color:var(--primary);
+  font-size:29px;
+}
+.price small{
+  font-family:var(--font-data);
+  font-weight:400;
+  font-size:13px;
+}
+.stars{
+  color:var(--accent);
+}
+.tour-meta i, .post-meta i, .widget h4::after{
+  color:var(--primary);
+}
+.widget h4::after{
+  background:var(--primary);
+}
+.tour-card, .post, .quote, .contact-card, .booking-box{
+  background:#fff;
+}
+.tour-thumb img, .post-thumb img, .dest img, .hero-card img{
+  filter:saturate(.88) contrast(1.04);
+  transition:transform .6s var(--ease),filter .6s var(--ease);
+}
+.tour-card:hover .tour-thumb img, .post:hover .post-thumb img, .dest:hover img, .hero-card:hover img{
+  filter:none;
+}
+/* ---------- 26.12 Blocs de service : alternance blanc / Majorelle ---------- */
+.feature{
+  background:#fff;
+  border:1px solid var(--line);
+  color:var(--body);
+}
+.feature h3{
+  color:var(--title);
+}
+.feature p{
+  color:var(--body);
+}
+.feature-icon{
+  background:transparent;
+  border:1px solid rgba(192,90,51,.32);
+  width:70px;
+  height:70px;
+  font-size:25px;
+}
+.feature-icon::after{
+  display:none;
+}
+/* ---------- 26.13 Encart d'offre ---------- */
+.offer p{
+  color:rgba(255,255,255,.84);
+}
+/* ---------- 26.14 Divers ---------- */
+.quote::before{
+  font-family:var(--font-display);
+  font-size:80px;
+  color:var(--primary);
+  opacity:.14;
+}
+.contact-card i{
+  background:var(--primary-soft);
+  color:var(--primary);
+}
+.itinerary .day{
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.itinerary summary::before{
+  background:var(--primary-soft);
+  color:var(--primary);
+}
+.to-top:hover{
+  color:#fff;
+}
+.chip:hover, .chip.active, .tags a:hover, .pagination a:hover, .pagination a.active{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+.topbar-info i{
+  background:rgba(255,255,255,.13);
+}
+/* ---------- 26.15 Responsive ---------- */
+@media (max-width:767px){
+  .route-node{
+    height:66px;
+  }
+  .route-node::before{
+    height:48px;
+  }
+  .route-node::after{
+    top:44px;
+  }
+  .coords{
+    font-size:10px;
+    gap:8px 14px;
+  }
+  .ticker-track{
+    font-size:11px;
+  }
+  .bg-smoke{
+    background-size:760px auto;
+  }
+  .counter strong{
+    font-size:38px;
+  }
+}
+/* ==========================================================================
+   27. Recherche de circuits et cartes de destination
+   ========================================================================== */
+/* L'attribut hidden doit l'emporter sur display:flex des cartes */
+[hidden]{
+  display:none !important;
+}
+/* ---------- 27.1 Cartes de destination du héro ---------- */
+.hero-card{
+  display:block;
+  position:relative;
+  overflow:hidden;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+}
+.hero-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 26px 50px rgba(27,18,13,.3);
+}
+.hero-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  transition:background .45s var(--ease);
+}
+.hero-card-body{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:2;
+  padding:22px 20px 20px;
+  color:#fff;
+  text-align:left;
+}
+.hero-card-name{
+  display:block;
+  font-family:var(--font-display);
+  font-size:25px;
+  line-height:1.1;
+  margin-bottom:4px;
+}
+.hero-card-meta{
+  display:block;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--cream);
+}
+.hero-card-go{
+  position:absolute;
+  right:18px;
+  bottom:22px;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  background:var(--cream);
+  color:var(--secondary);
+  font-size:13px;
+  opacity:0;
+  transform:translateX(-8px);
+  transition:all .4s var(--ease);
+}
+.hero-card:hover .hero-card-go{
+  opacity:1;
+  transform:none;
+}
+/* ---------- 27.2 Barre de filtres ---------- */
+.filter-count{
+  display:inline-flex;
+  align-items:center;
+  gap:16px;
+  font-family:var(--font-data);
+  font-size:13px;
+}
+.filter-count strong{
+  font-family:var(--font-display);
+  font-size:19px;
+  color:var(--primary);
+}
+.filter-reset{
+  border:1px solid var(--line);
+  background:#fff;
+  cursor:pointer;
+  padding:7px 14px;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--primary);
+  transition:all .3s var(--ease);
+}
+.filter-reset:hover{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+/* ---------- 27.3 Aucun résultat ---------- */
+.no-results{
+  border:1px dashed var(--border);
+  background:var(--smoke);
+  padding:44px 26px;
+  text-align:center;
+  font-size:16px;
+}
+.no-results strong{
+  display:block;
+  font-family:var(--font-display);
+  font-size:23px;
+  color:var(--title);
+  margin-bottom:8px;
+}
+.no-results .link-more{
+  border:0;
+  background:none;
+  cursor:pointer;
+  padding:0;
+  color:var(--primary);
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+/* ---------- 27.4 Formulaire de recherche ---------- */
+.search-bar{
+  border:1px solid var(--line);
+}
+.search-bar select, .search-bar input{
+  cursor:pointer;
+}
+.search-bar .btn{
+  height:47px;
+}
+@media (max-width:767px){
+  .hero-card-name{
+    font-size:21px;
+  }
+  .filter-bar{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+/* ==========================================================================
+   28. Rythme des sections — filets plutôt qu'aplats
+   Les sections alternées ne sont plus des blocs beiges : elles restent
+   blanches et se séparent par un filet, et le contraste vient de vraies
+   sections sombres. C'est la respiration d'un site composé, pas généré.
+   ========================================================================== */
+.bg-smoke{
+  background-color:#fff;
+  background-size:1100px auto;
+  background-position:center -60px;
+  background-repeat:no-repeat;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.bg-smoke .route-node::after{
+  background:#fff;
+}
+/* Section sombre : le vrai contrepoint visuel */
+.bg-ink{
+  background:var(--secondary);
+  color:rgba(255,255,255,.72);
+  position:relative;
+  overflow:hidden;
+}
+.bg-ink::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:var(--contour-light) center/1200px auto no-repeat;
+  opacity:.45;
+}
+.bg-ink .container{
+  position:relative;
+  z-index:2;
+}
+.bg-ink h1, .bg-ink h2, .bg-ink h3, .bg-ink h4{
+  color:#fff;
+}
+.bg-ink .sec-text, .bg-ink p{
+  color:rgba(255,255,255,.72);
+}
+.bg-ink .eyebrow{
+  color:var(--cream);
+}
+.bg-ink .eyebrow::before{
+  color:#fff;
+  opacity:.5;
+}
+.bg-ink .route-node::before{
+  background:repeating-linear-gradient(to bottom,var(--cream) 0 5px,transparent 5px 12px);
+}
+.bg-ink .route-node::after{
+  border-color:var(--cream);
+  background:var(--secondary);
+}
+/* Petits fonds neutres conservés (encadrés, widgets, pagination) */
+.info-box, .widget, .filter-bar, .no-results, .pagination a{
+  background:var(--smoke);
+}
+.no-results{
+  border-color:var(--line);
+}
+/* ==========================================================================
+   29. Listing : colonne de filtres, barre d'outils, grille ou liste
+   Structure reprise du listing Travolo (« Filter By » + modes d'affichage),
+   redessinée avec nos filets, notre chasse et nos couleurs.
+   ========================================================================== */
+.listing{
+  display:grid;
+  grid-template-columns:290px 1fr;
+  gap:44px;
+  align-items:start;
+}
+/* ---------- 29.1 Colonne de filtres ---------- */
+.filters{
+  position:sticky;
+  top:104px;
+}
+.filters form{
+  border:1px solid var(--line);
+  padding:26px 24px 24px;
+}
+.filters-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:16px;
+  margin-bottom:6px;
+  border-bottom:1px solid var(--line);
+}
+.filters-head h3{
+  margin:0;
+  font-size:21px;
+}
+.filter-group{
+  border:0;
+  padding:0;
+  margin:22px 0 0;
+}
+.filter-group legend{
+  padding:0;
+  margin-bottom:12px;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--primary);
+}
+.opts{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  max-height:none;
+}
+.opt{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  cursor:pointer;
+  font-size:15px;
+  line-height:1.3;
+}
+.opt input{
+  appearance:none;
+  -webkit-appearance:none;
+  margin:0;
+  flex:none;
+  width:15px;
+  height:15px;
+  border:1px solid #cfc7bb;
+  background:#fff;
+  cursor:pointer;
+  transition:all .2s var(--ease);
+}
+.opt input:checked{
+  box-shadow:inset 0 0 0 3px #fff;
+}
+.opt input:focus-visible{
+  outline:2px solid var(--primary);
+  outline-offset:2px;
+}
+.opt span{
+  transition:color .2s var(--ease);
+}
+.opt:hover span, .opt input:checked + span{
+  color:var(--title);
+}
+.opt input:checked + span{
+  font-weight:600;
+}
+.filters form .btn{
+  margin-top:26px;
+}
+.filters-help{
+  border:1px solid var(--line);
+  border-top:0;
+  padding:24px;
+  background:var(--smoke);
+}
+.filters-help h4{
+  margin-bottom:8px;
+  font-size:17px;
+}
+.filters-help p{
+  font-size:14px;
+  margin-bottom:16px;
+}
+/* ---------- 29.2 Barre d'outils ---------- */
+.listing-bar{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding-bottom:18px;
+  margin-bottom:26px;
+  border-bottom:1px solid var(--line);
+}
+.listing-count{
+  font-family:var(--font-data);
+  font-size:13px;
+  letter-spacing:.04em;
+}
+.listing-count strong{
+  font-family:var(--font-display);
+  font-size:23px;
+  color:var(--primary);
+  margin-right:4px;
+}
+.listing-tools{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+.sort{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.sort span{
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted-cool);
+}
+.sort select{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:9px 12px;
+  cursor:pointer;
+  font-size:14px;
+}
+.views{
+  display:flex;
+  border:1px solid var(--line);
+}
+.view{
+  width:38px;
+  height:38px;
+  border:0;
+  background:#fff;
+  cursor:pointer;
+  color:#a9a49c;
+  font-size:14px;
+  transition:all .25s var(--ease);
+}
+.view + .view{
+  border-left:1px solid var(--line);
+}
+.view:hover{
+  color:var(--primary);
+}
+.view.active{
+  background:var(--primary);
+  color:#fff;
+}
+/* ---------- 29.3 Mode liste ---------- */
+.view-list #tour-results{
+  grid-template-columns:1fr;
+}
+.view-list .tour-card{
+  flex-direction:row;
+}
+.view-list .tour-thumb{
+  flex:0 0 40%;
+  aspect-ratio:auto;
+  min-height:100%;
+}
+.view-list .tour-body{
+  flex:1;
+  padding:26px 28px;
+}
+.view-list .tour-body h3{
+  font-size:24px;
+}
+@media (max-width:991px){
+  .view-list .tour-card{
+    flex-direction:column;
+  }
+  .view-list .tour-thumb{
+    flex:none;
+    aspect-ratio:16/11;
+  }
+}
+/* ---------- 29.4 Responsive ---------- */
+@media (max-width:1100px){
+  .listing{
+    grid-template-columns:250px 1fr;
+    gap:30px;
+  }
+}
+@media (max-width:860px){
+  .listing{
+    grid-template-columns:1fr;
+  }
+  .filters{
+    position:static;
+  }
+  .opts{
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:8px 20px;
+  }
+  .filters-help{
+    display:none;
+  }
+}
+/* ==========================================================================
+   30. Page Destinations — grille éditoriale
+   ========================================================================== */
+.dgrid{
+  display:grid;
+  gap:26px;
+}
+.dgrid--lead{
+  grid-template-columns:1fr 1fr;
+  margin-bottom:26px;
+}
+.dgrid--rest{
+  grid-template-columns:repeat(3,1fr);
+}
+.dcard{
+  position:relative;
+  display:block;
+  overflow:hidden;
+  color:#fff;
+  border:1px solid var(--line);
+  background:var(--secondary);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+}
+.dcard:hover{
+  transform:translateY(-6px);
+  box-shadow:0 22px 44px rgba(27,29,42,.2);
+}
+.dcard img{
+  width:100%;
+  height:100%;
+  position:absolute;
+  inset:0;
+  object-fit:cover;
+  transition:transform .7s var(--ease),filter .7s var(--ease);
+}
+.dcard:hover img{
+  transform:scale(1.06);
+}
+.dcard::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  transition:background .45s var(--ease);
+}
+.dcard-body{
+  position:relative;
+  z-index:2;
+  display:block;
+  padding:30px 28px 26px;
+}
+.dcard--big .dcard-body{
+  min-height:420px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+.dcard--small .dcard-body{
+  min-height:300px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+.dcard-sub{
+  display:block;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--cream);
+  margin-bottom:8px;
+}
+.dcard-name{
+  display:block;
+  font-family:var(--font-display);
+  font-weight:600;
+  line-height:1.08;
+  font-size:32px;
+  margin-bottom:10px;
+}
+.dcard--small .dcard-name{
+  font-size:26px;
+}
+.dcard-text{
+  display:block;
+  font-size:15px;
+  line-height:1.6;
+  color:rgba(255,255,255,.76);
+  max-width:38ch;
+  margin-bottom:18px;
+}
+.dcard--small .dcard-text{
+  font-size:14px;
+}
+.dcard-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-top:15px;
+  border-top:1px solid rgba(255,255,255,.22);
+}
+.dcard-foot em{
+  font-style:normal;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--cream);
+}
+.dcard-foot i{
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  background:rgba(255,255,255,.14);
+  color:#fff;
+  transition:all .4s var(--ease);
+}
+.dcard:hover .dcard-foot i{
+  background:var(--cream);
+  color:var(--secondary);
+}
+@media (max-width:991px){
+  .dgrid--rest{
+    grid-template-columns:1fr 1fr;
+  }
+}
+@media (max-width:640px){
+  .dgrid--lead, .dgrid--rest{
+    grid-template-columns:1fr;
+  }
+  .dcard--big .dcard-body, .dcard--small .dcard-body{
+    min-height:280px;
+  }
+  .dcard-name{
+    font-size:26px;
+  }
+}
+/* ==========================================================================
+   31. Fiche circuit — fiche technique, onglets, notes détaillées, demande d'info
+   Reprise de la page « Trip Details » de Travolo (Overview / Itinerary / Cost / Map).
+   ========================================================================== */
+/* ---------- 31.1 Fiche technique ---------- */
+.trip-facts{
+  border:1px solid var(--line);
+  padding:28px 30px 26px;
+  margin-bottom:44px;
+}
+.trip-facts h3{
+  font-size:21px;
+  margin-bottom:20px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.trip-facts ul{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px 34px;
+}
+.trip-facts li{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+.trip-facts i{
+  color:var(--primary);
+  font-size:15px;
+  margin-top:5px;
+  width:18px;
+  flex:none;
+  text-align:center;
+}
+.trip-facts span{
+  display:block;
+  font-size:15px;
+  color:var(--title);
+  line-height:1.5;
+}
+.trip-facts em{
+  display:block;
+  font-style:normal;
+  font-family:var(--font-data);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:2px;
+}
+@media (max-width:640px){
+  .trip-facts ul{
+    grid-template-columns:1fr;
+  }
+}
+/* ---------- 31.2 Onglets ---------- */
+.tabs-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0;
+  border-bottom:1px solid var(--line);
+  margin-bottom:34px;
+}
+.tab{
+  border:0;
+  background:none;
+  cursor:pointer;
+  padding:14px 22px;
+  font-family:var(--font-data);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  transition:all .3s var(--ease);
+}
+.tab:hover{
+  color:var(--title);
+}
+.tab.active{
+  color:var(--primary);
+  border-bottom-color:var(--primary);
+}
+/* Les cinq sections sont toutes affichées : ce sont des parties de la fiche,
+   plus des onglets. Voir la section 52 pour le raisonnement et les marges. */
+.tab-panel{
+  display:block;
+}
+.panel-sub{
+  margin-top:32px;
+  margin-bottom:14px;
+  font-size:18px;
+}
+.panel-note{
+  margin-top:22px;
+  padding:16px 20px;
+  background:var(--smoke);
+  border-left:3px solid var(--primary);
+  font-size:15px;
+}
+.highlights li{
+  position:relative;
+  padding-left:26px;
+  margin-bottom:10px;
+  font-size:15px;
+}
+.highlights li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:11px;
+  width:8px;
+  height:8px;
+  background:var(--primary);
+  transform:rotate(45deg);
+}
+@media (max-width:640px){
+  .tab{
+    padding:12px 14px;
+    font-size:11px;
+    letter-spacing:.1em;
+  }
+}
+/* ---------- 31.3 Détail des notes ---------- */
+.rating-summary{
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:34px;
+  align-items:center;
+  border:1px solid var(--line);
+  padding:26px 30px;
+  margin-bottom:30px;
+}
+.rating-score{
+  text-align:center;
+}
+.rating-score strong{
+  display:block;
+  font-family:var(--font-display);
+  font-size:52px;
+  line-height:1;
+  color:var(--primary);
+}
+.rating-score .stars{
+  display:inline-flex;
+  gap:3px;
+  margin:8px 0 4px;
+}
+.rating-score em{
+  display:block;
+  font-style:normal;
+  font-family:var(--font-data);
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.rating-bars li{
+  display:grid;
+  grid-template-columns:160px 1fr 34px;
+  gap:16px;
+  align-items:center;
+  font-size:14px;
+}
+.rating-bars li+li{
+  margin-top:12px;
+}
+.rating-bars b{
+  display:block;
+  height:5px;
+  background:var(--line);
+  position:relative;
+}
+.rating-bars b::after{
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:var(--v);
+  background:var(--primary);
+}
+.rating-bars em{
+  font-style:normal;
+  font-family:var(--font-data);
+  font-size:13px;
+  color:var(--title);
+  text-align:right;
+}
+@media (max-width:767px){
+  .rating-summary{
+    grid-template-columns:1fr;
+    gap:24px;
+    text-align:center;
+  }
+  .rating-bars li{
+    grid-template-columns:110px 1fr 32px;
+    gap:10px;
+    font-size:13px;
+    text-align:left;
+  }
+}
+/* ---------- 31.4 Demande d'information ---------- */
+.enquiry{
+  border:1px solid var(--line);
+  padding:34px 34px 30px;
+  margin-top:48px;
+  background:var(--smoke);
+}
+.enquiry h3{
+  font-size:24px;
+  margin-bottom:8px;
+}
+.enquiry > p{
+  margin-bottom:24px;
+}
+.enquiry input, .enquiry textarea{
+  background:#fff;
+}
+/* ==========================================================================
+   32. RÉGLAGE FINAL
+   a) plus de numérotation des sections
+   b) palette ramenée à trois valeurs : encre (structure), terre cuite (signal),
+      crème (rehaut sur fond sombre) — la couleur ne porte plus chaque élément
+   c) un léger arrondi en haut des cartes
+   ========================================================================== */
+/* ---------- 32.a Sur-titres sans numéro ---------- */
+.eyebrow::before{
+  content:none;
+  counter-increment:none;
+}
+.eyebrow{
+  gap:12px;
+}
+/* ---------- 32.b Hiérarchie : l'encre travaille, la terre cuite signale ---------- */
+/* Boutons : sobres au repos, chauds à l'interaction */
+.btn{
+  background:var(--secondary);
+  color:#fff;
+}
+.btn:hover{
+  background:var(--primary);
+  color:#fff;
+}
+.btn-accent{
+  background:var(--secondary);
+  color:#fff;
+}
+.btn-accent:hover{
+  background:var(--primary);
+  color:#fff;
+}
+.btn-outline{
+  background:transparent;
+  border-color:var(--secondary);
+  color:var(--secondary);
+}
+/* Les trois actions réellement décisives gardent la terre cuite */
+.search-bar .btn, .booking-box .btn, .tour-card .btn{
+  background:var(--primary);
+}
+/* Sur fond sombre, c'est la crème qui porte l'action */
+.hero .btn, .offer .btn, .bg-ink .btn, .footer .btn{
+  background:var(--cream);
+  color:var(--secondary);
+}
+.hero .btn:hover, .offer .btn:hover, .bg-ink .btn:hover, .footer .btn:hover{
+  background:var(--primary);
+  color:#fff;
+}
+.bg-ink .btn-outline{
+  background:transparent;
+  border-color:var(--cream);
+  color:var(--cream);
+}
+/* Barre de navigation fixe : encre, plus d'aplat terre cuite en haut d'écran */
+.site-top.stuck{
+  background:var(--secondary);
+}
+/* Bandeau défilant et encart d'offre : encre également */
+.ticker{
+  background:var(--secondary);
+}
+.ticker-track span::after{
+  background:var(--primary);
+}
+.offer{
+  background:var(--secondary);
+}
+.offer::after{
+  background:rgba(192,90,51,.2);
+}
+/* Cartes de service : blanches, une sur deux en encre — aucune en terre cuite */
+.feature-icon{
+  border-color:var(--line);
+  color:var(--primary);
+}
+/* Étiquettes en encre, remise en terre cuite : un seul point chaud par carte */
+.tour-tag{
+  background:var(--secondary);
+  color:#fff;
+}
+.to-top{
+  background:var(--secondary);
+  color:#fff;
+}
+.to-top:hover{
+  background:var(--primary);
+}
+.newsletter button{
+  color:#fff;
+}
+.social a:hover{
+  background:var(--primary);
+  color:#fff;
+}
+/* Voile des photos : encre neutre, la couleur vient de l'image elle-même */
+.page-hero{
+  background:linear-gradient(rgba(23,24,34,.78),rgba(16,17,24,.80)) center/cover,
+             url('https://picsum.photos/seed/terrasud-banner/1600/700') center/cover no-repeat;
+}
+.hero-card::after{
+  background:linear-gradient(180deg,rgba(18,19,27,0) 35%,rgba(18,19,27,.82) 100%);
+}
+.hero-card:hover::after{
+  background:linear-gradient(180deg,rgba(192,90,51,.22) 20%,rgba(18,19,27,.88) 100%);
+}
+/* ---------- 32.c Un léger arrondi, en haut seulement ---------- */
+:root{
+  --radius-top:12px;
+}
+.tour-card, .post, .dcard, .hero-card, .quote, .contact-card, .feature, .trip-facts, .booking-box, .filters form, .search-bar, .team img, .about-img img{
+  border-radius:var(--radius-top) var(--radius-top) 0 0;
+}
+.tour-thumb, .post-thumb{
+  border-radius:var(--radius-top) var(--radius-top) 0 0;
+  overflow:hidden;
+}
+.tour-card::before, .post::before{
+  border-top-left-radius:var(--radius-top);
+}
+.tour-tag{
+  border-top-right-radius:var(--radius-top);
+}
+.filters-help{
+  border-radius:0;
+}
+.view-list .tour-card{
+  border-radius:var(--radius-top) var(--radius-top) 0 0;
+}
+.view-list .tour-thumb{
+  border-radius:var(--radius-top) 0 0 0;
+}
+@media (max-width:991px){
+  .view-list .tour-thumb{
+    border-radius:var(--radius-top) var(--radius-top) 0 0;
+  }
+}
+/* ==========================================================================
+   33. Survol des boutons — un simple changement de couleur
+   Plus de décalage ni d'ombre portée : le bouton reste à sa place.
+   Règle unique : ce qui est sombre ou clair devient terre cuite,
+   ce qui est déjà terre cuite fonce d'un ton.
+   ========================================================================== */
+.btn{
+  transition:background-color .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease);
+}
+.btn:hover, .btn:focus-visible, .btn-accent:hover, .btn-outline:hover, .btn-white:hover, .search-bar .btn:hover, .booking-box .btn:hover, .tour-card .btn:hover, .hero .btn:hover, .offer .btn:hover, .bg-ink .btn:hover, .footer .btn:hover, .header-cta .btn:hover{
+  transform:none;
+  box-shadow:none;
+}
+/* Boutons sombres, crème ou blancs → terre cuite */
+.btn:hover, .btn-accent:hover, .btn-white:hover, .hero .btn:hover, .offer .btn:hover, .bg-ink .btn:hover, .footer .btn:hover, .header-cta .btn:hover{
+  background:var(--primary);
+  color:#fff;
+}
+/* Boutons déjà terre cuite → un ton plus foncé */
+.search-bar .btn:hover, .booking-box .btn:hover, .tour-card .btn:hover{
+  background:var(--primary-dark);
+  color:#fff;
+}
+/* Boutons filaires → remplissage */
+.btn-outline:hover{
+  background:var(--primary);
+  color:#fff;
+  border-color:var(--primary);
+}
+.bg-ink .btn-outline:hover{
+  background:var(--cream);
+  color:var(--secondary);
+  border-color:var(--cream);
+}
+.btn:focus-visible{
+  outline:2px solid var(--primary);
+  outline-offset:3px;
+}
+/* ==========================================================================
+   34. Gabarits à deux colonnes — en classes, pour qu'ils puissent s'empiler
+   (ils étaient écrits en style « inline », ce qui empêchait les media queries
+   de les ramener sur une seule colonne en dessous de 991 px).
+   ========================================================================== */
+.row-split{
+  grid-template-columns:2.2fr 1fr;
+  gap:40px;
+  align-items:start;
+}
+.row-detail{
+  grid-template-columns:1.9fr 1fr;
+  gap:40px;
+  align-items:start;
+}
+@media (max-width:1100px){
+  .row-split{
+    grid-template-columns:1.9fr 1fr;
+    gap:32px;
+  }
+  .row-detail{
+    grid-template-columns:1.7fr 1fr;
+    gap:32px;
+  }
+}
+@media (max-width:991px){
+  .row-split, .row-detail{
+    grid-template-columns:1fr;
+    gap:50px;
+  }
+  .row-split .sidebar, .row-detail aside{
+    max-width:640px;
+    margin-inline:auto;
+    width:100%;
+  }
+}
+/* Très petits écrans : la colonne de filtres reste dans le cadre */
+@media (max-width:420px){
+  .container{
+    padding-inline:16px;
+  }
+  .filters form{
+    padding:20px 16px 18px;
+  }
+  .filters-head h3{
+    font-size:19px;
+  }
+  .opts{
+    flex-direction:column;
+    gap:9px;
+  }
+  .opt{
+    font-size:14px;
+  }
+  .listing-bar{
+    gap:12px;
+  }
+  .listing-tools{
+    width:100%;
+    justify-content:space-between;
+  }
+  .sort select{
+    max-width:150px;
+  }
+  .trip-facts{
+    padding:22px 18px;
+  }
+  .enquiry{
+    padding:24px 18px 22px;
+  }
+  .rating-bars li{
+    grid-template-columns:96px 1fr 30px;
+  }
+  .widget, .filters-help{
+    padding:20px 18px;
+  }
+  .booking-box{
+    padding:22px 18px;
+  }
+  .hero-card-name{
+    font-size:19px;
+  }
+  .dcard-body{
+    padding:24px 20px 22px;
+  }
+}
+/* Les éléments d'une grille ne doivent pas être bloqués par leur largeur
+   minimale de contenu : sans cela ils refusent de se réduire sous 320 px. */
+.row > *, .listing > *, .dgrid > *, .trip-facts ul > *{
+  min-width:0;
+}
+.tour-body, .post-body, .dcard-body, .hero-card-body{
+  overflow-wrap:break-word;
+}
+/* ==========================================================================
+   35. Mobile — la colonne de filtres se replie pour ne pas repousser les résultats
+   ========================================================================== */
+.filters-toggle{
+  display:none;
+}
+@media (max-width:860px){
+  .filters form{
+    padding:18px 20px;
+  }
+  .filters-head{
+    padding-bottom:0;
+    margin-bottom:0;
+    border-bottom:0;
+    align-items:center;
+  }
+  .filters-head h3{
+    font-size:19px;
+  }
+  .filters-toggle{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    margin-left:auto;
+    border:1px solid var(--line);
+    background:#fff;
+    cursor:pointer;
+    padding:8px 14px;
+    font-family:var(--font-data);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--primary);
+    transition:all .25s var(--ease);
+  }
+  .filters-toggle i{
+    font-size:10px;
+    transition:transform .3s var(--ease);
+  }
+  .filters.open .filters-toggle{
+    background:var(--secondary);
+    color:#fff;
+    border-color:var(--secondary);
+  }
+  .filters.open .filters-toggle i{
+    transform:rotate(180deg);
+  }
+  .filters-body{
+    display:none;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    margin-top:16px;
+  }
+  .filters.open .filters-body{
+    display:block;
+  }
+  .filter-group:first-child{
+    margin-top:0;
+  }
+}
+/* ==========================================================================
+   36. AFFINAGE — moins de répétition, plus de hiérarchie
+   a) la carte circuit perd son bouton : la carte entière est le lien
+   b) un seul point chaud et un seul coin occupé par carte
+   c) le héro s'allège : plus de cercles, moins de tracés, voile dégradé
+   d) le jalon et les courbes de niveau cessent d'être du papier peint
+   e) échelle typographique resserrée, un cran intermédiaire retrouvé
+   f) deux sections sortent de l'axe central
+   g) deux formats d'image seulement : 16/10 et 3/4
+   ========================================================================== */
+/* ---------- 36.a La carte entière est le lien ---------- */
+.tour-body h3 a::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+}
+.tour-card:hover{
+  box-shadow:0 18px 40px rgba(27,29,42,.10);
+}
+.tour-body{
+  gap:12px;
+}
+/* ---------- 36.b Un seul point chaud, un seul coin ---------- */
+/* Le N° quitte l'image et redescend dans la fiche, à côté des étoiles. */
+.tour-card, .post{
+  counter-increment:item;
+}
+.tour-card::before, .post::before{
+  content:none;
+  counter-increment:none;
+}
+.tour-body .stars{
+  display:flex;
+  width:100%;
+  align-items:center;
+  gap:9px;
+}
+.tour-body .stars::before, .post-body .post-meta::before{
+  content:"N°" counter(item,decimal-leading-zero);
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.14em;
+  color:var(--title);
+  opacity:.4;
+  margin-right:auto;
+}
+.post-body .post-meta::before{
+  margin-right:0;
+  margin-inline-end:4px;
+}
+.post-body .post-meta{
+  align-items:center;
+}
+/* La remise se retire en filet : le prix reste le seul élément terre cuite. */
+.badge-off{
+  background:transparent;
+  color:var(--title);
+  border:1px solid var(--border);
+  font-family:var(--font-data);
+  font-size:11px;
+  letter-spacing:.1em;
+  padding:4px 10px;
+}
+/* ---------- 36.c Héro ---------- */
+.hero::before, .hero::after{
+  content:none;
+}
+.hero{
+  padding-block:180px 0;
+  background:linear-gradient(180deg,rgba(18,19,27,.68) 0%,rgba(18,19,27,.34) 34%,
+                    rgba(18,19,27,.50) 66%,rgba(14,15,21,.90) 100%),
+    url('https://picsum.photos/seed/terra-hero/1920/1100') center/cover no-repeat;
+}
+.hero-art{
+  opacity:.32;
+}
+.hero h1{
+  text-shadow:0 2px 34px rgba(0,0,0,.6);
+}
+.hero p{
+  text-shadow:0 1px 20px rgba(0,0,0,.5);
+}
+.page-hero::after{
+  opacity:.3;
+}
+/* ---------- 36.d Les signatures respirent ---------- */
+.bg-smoke{
+  background-image:none;
+}
+/* ---------- 36.e Échelle typographique ---------- */
+.sec-text, .lede{
+  font-size:19px;
+  line-height:1.7;
+}
+.hero p{
+  font-size:19px;
+  line-height:1.7;
+  max-width:720px;
+  margin-inline:auto;
+}
+/* La police de titrage reste aux grands corps, aux chiffres et aux noms sur photo ;
+   les titres de fiche passent en Archivo, plus lisible à cette taille. */
+.tour-body h3, .post-body h3{
+  font-family:var(--font);
+  font-weight:600;
+  font-size:22px;
+  line-height:1.32;
+  letter-spacing:-.012em;
+}
+.feature h3{
+  font-family:var(--font);
+  font-weight:600;
+  font-size:19px;
+  letter-spacing:-.008em;
+}
+.widget-post h4, .related h3{
+  font-family:var(--font);
+  font-weight:600;
+  letter-spacing:-.008em;
+}
+/* ---------- 36.f Deux sections hors de l'axe ---------- */
+.row-head{
+  display:grid;
+  grid-template-columns:.92fr 1.4fr;
+  gap:60px;
+  align-items:start;
+}
+.row-head .head-col{
+  position:sticky;
+  top:120px;
+}
+.row-head .head-col .sec-title{
+  max-width:none;
+  margin-bottom:16px;
+}
+.row-head .head-col .sec-text{
+  margin-inline:0;
+  max-width:none;
+  margin-bottom:30px;
+}
+.row-head .row{
+  gap:24px;
+}
+.sec-head--row{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:36px;
+  margin-bottom:46px;
+  padding-bottom:24px;
+  border-bottom:1px solid var(--line);
+}
+.sec-head--row .sec-title{
+  margin-bottom:0;
+  max-width:580px;
+}
+.sec-head--row .link-more{
+  white-space:nowrap;
+  padding-bottom:4px;
+}
+/* ---------- 36.f bis Cartes de service : une seule en encre ---------- */
+.feature:nth-child(even){
+  background:#fff;
+  border-color:var(--line);
+  color:var(--body);
+}
+.feature:nth-child(even) h3{
+  color:var(--title);
+}
+.feature:nth-child(even) p{
+  color:var(--body);
+}
+.feature:nth-child(even) .feature-icon{
+  color:var(--primary);
+  border-color:var(--line);
+}
+.feature{
+  padding:34px 28px;
+  text-align:left;
+}
+.feature-icon{
+  margin:0 0 20px;
+}
+/* ---------- 36.f ter L'encart d'offre porte les chiffres ---------- */
+.offer{
+  padding:62px 50px;
+}
+.offer-head{
+  align-items:center;
+}
+.offer-cta{
+  text-align:right;
+}
+.offer-stats{
+  position:relative;
+  z-index:2;
+  margin-top:40px;
+  padding-top:34px;
+  border-top:1px solid rgba(242,228,213,.22);
+}
+.offer .counter strong{
+  color:var(--cream);
+  font-size:40px;
+}
+.offer .counter span{
+  color:rgba(255,255,255,.66);
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-family:var(--font-data);
+  font-weight:600;
+}
+.offer .counter{
+  text-align:left;
+}
+/* ---------- 36.g Deux formats d'image ---------- */
+.tour-thumb, .post-thumb{
+  aspect-ratio:16/10;
+}
+.hero-card{
+  height:auto;
+}
+.dest{
+  aspect-ratio:3/4;
+}
+/* ---------- 36.h Responsive ---------- */
+@media (max-width:1199px){
+  .row-head{
+    grid-template-columns:.95fr 1.25fr;
+    gap:44px;
+  }
+  .hero-card{
+    height:auto;
+  }
+}
+@media (max-width:991px){
+  .row-head{
+    grid-template-columns:1fr;
+    gap:38px;
+  }
+  .row-head .head-col{
+    position:static;
+  }
+  .offer{
+    padding:48px 34px;
+  }
+  .offer-cta{
+    text-align:left;
+    margin-top:8px;
+  }
+  .offer-stats{
+    margin-top:32px;
+    padding-top:28px;
+  }
+}
+@media (max-width:767px){
+  .hero-card{
+    height:auto;
+  }
+  .sec-head--row{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:16px;
+  }
+  .tour-body h3, .post-body h3{
+    font-size:20px;
+  }
+  .sec-text, .lede, .hero p{
+    font-size:17px;
+  }
+  .offer .counter strong{
+    font-size:34px;
+  }
+}
+/* Petit écran : la pastille « 14 ans » revient dans le cadre de l'image */
+@media (max-width:520px){
+  .about-img .badge-exp{
+    right:12px;
+    bottom:12px;
+    padding:16px 20px;
+  }
+  .about-img .badge-exp strong{
+    font-size:28px;
+  }
+}
+/* ==========================================================================
+   37. LA CARTE DES RÉGIONS et les derniers ajustements
+   La section « Destinations » n'est plus une quatrième grille de cartes :
+   c'est une carte du territoire, à côté d'un texte aligné à gauche.
+   ========================================================================== */
+.atlas-split{
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:64px;
+  align-items:center;
+}
+.atlas-intro .sec-title{
+  max-width:420px;
+  margin-bottom:18px;
+}
+.atlas-intro .sec-text{
+  margin-inline:0;
+  max-width:430px;
+  margin-bottom:32px;
+}
+.atlas-map{
+  position:relative;
+}
+.atlas-svg{
+  width:100%;
+  height:auto;
+  display:block;
+  margin-inline:auto;
+  overflow:visible;
+}
+.atlas-outline{
+  fill:rgba(242,228,213,.045);
+  stroke:rgba(242,228,213,.34);
+  stroke-width:1.1;
+  stroke-linejoin:round;
+}
+.atlas-route{
+  fill:none;
+  stroke:var(--primary);
+  stroke-width:1.1;
+  stroke-dasharray:4 6;
+  opacity:.55;
+}
+.atlas-pin{
+  cursor:pointer;
+}
+.atlas-dot{
+  fill:var(--primary);
+  transition:fill .25s var(--ease);
+}
+.atlas-halo{
+  fill:none;
+  stroke:var(--cream);
+  stroke-width:1;
+  opacity:0;
+  transition:opacity .25s var(--ease);
+}
+.atlas-name{
+  fill:rgba(255,255,255,.7);
+  font-family:var(--font-data);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  transition:fill .25s var(--ease);
+}
+.atlas-pin:hover .atlas-dot, .atlas-pin:focus-visible .atlas-dot{
+  fill:var(--cream);
+}
+.atlas-pin:hover .atlas-halo, .atlas-pin:focus-visible .atlas-halo{
+  opacity:.7;
+}
+.atlas-pin:hover .atlas-name, .atlas-pin:focus-visible .atlas-name{
+  fill:#fff;
+}
+.atlas-pin:focus{
+  outline:none;
+}
+.atlas-note{
+  fill:rgba(255,255,255,.34);
+  font-family:var(--font-data);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.atlas-note-2{
+  fill:rgba(255,255,255,.22);
+}
+.atlas-list{
+  display:none;
+}
+/* Sous 860 px la carte devient illisible : on la remplace par la liste des régions. */
+@media (max-width:991px){
+  .atlas-split{
+    grid-template-columns:1fr;
+    gap:44px;
+  }
+  .atlas-svg{
+    max-width:520px;
+  }
+}
+@media (max-width:860px){
+  .atlas-svg{
+    display:none;
+  }
+  .atlas-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:rgba(242,228,213,.16);
+    border:1px solid rgba(242,228,213,.16);
+    list-style:none;
+  }
+  .atlas-list a{
+    background:var(--secondary);
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    padding:18px 16px;
+    transition:background .25s var(--ease);
+  }
+  .atlas-list a:hover{
+    background:#242636;
+  }
+  .atlas-list strong{
+    font-family:var(--font);
+    font-weight:600;
+    font-size:17px;
+    color:#fff;
+  }
+  .atlas-list span{
+    font-family:var(--font-data);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--cream);
+  }
+}
+/* ---------- 37.b La carte d'article se comporte comme la carte circuit ---------- */
+.post-body h3 a::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+}
+.post-body{
+  gap:12px;
+  display:flex;
+  flex-direction:column;
+}
+/* ---------- 37.c Deux ornements de trop ---------- */
+.quote::before{
+  content:none;
+}
+/* le grand guillemet flottant */
+.offer::after{
+  content:none;
+}
+/* le halo rond, reste de l'ancienne palette */
+/* ---------- 37.d La carte de service en encre ferme la grille ---------- */
+.feature:first-child{
+  background:#fff;
+  border-color:var(--line);
+}
+.feature:first-child h3{
+  color:var(--title);
+}
+.feature:first-child p{
+  color:var(--body);
+}
+.feature:first-child .feature-icon{
+  color:var(--primary);
+  border-color:var(--line);
+}
+.feature:last-child{
+  background:var(--secondary);
+  border-color:var(--secondary);
+}
+.feature:last-child h3{
+  color:#fff;
+}
+.feature:last-child p{
+  color:rgba(255,255,255,.82);
+}
+.feature:last-child .feature-icon{
+  color:var(--cream);
+  border-color:rgba(242,228,213,.4);
+}
+/* ---------- 37.e Les cartes du héro retrouvent du poids ---------- */
+.hero-card{
+  border:0;
+  aspect-ratio:4/3;
+  box-shadow:0 22px 46px rgba(14,15,21,.34);
+}
+.hero-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  border:1px solid rgba(242,228,213,.28);
+}
+.hero-cards{
+  gap:24px;
+}
+.hero + .section{
+  padding-top:126px;
+  padding-bottom:78px;
+}
+/* ---------- 37.f Deux sections qui se suivent respirent moins ---------- */
+.bg-smoke + .section{
+  padding-top:86px;
+}
+@media (max-width:1199px){
+  .hero-card{
+    aspect-ratio:4/3;
+  }
+}
+@media (max-width:767px){
+  .hero-card{
+    aspect-ratio:16/10;
+  }
+  .hero + .section{
+    padding-top:92px;
+    padding-bottom:60px;
+  }
+  .bg-smoke + .section{
+    padding-top:66px;
+  }
+}
+/* Relevé chiffré sous le bouton, plutôt qu'un texte perdu dans la carte */
+.atlas-figures{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 22px;
+  margin:28px 0 0;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.42);
+}
+.atlas-figures span+span::before{
+  content:"";
+  display:inline-block;
+  width:5px;
+  height:5px;
+  margin-right:22px;
+  background:var(--primary);
+  transform:rotate(45deg);
+}
+/* Petits écrans : le relevé chiffré passe en colonne, la liste reste sur deux colonnes */
+@media (max-width:560px){
+  .atlas-figures{
+    flex-direction:column;
+    gap:7px;
+  }
+  .atlas-figures span+span::before{
+    display:none;
+  }
+}
+@media (max-width:420px){
+  .atlas-list{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .atlas-list a{
+    padding:14px 12px;
+    gap:3px;
+  }
+  .atlas-list strong{
+    font-size:15px;
+    line-height:1.25;
+  }
+  .atlas-list span{
+    font-size:10px;
+    letter-spacing:.1em;
+  }
+}
+/* ==========================================================================
+   38. LES PAGES INTÉRIEURES RATTRAPENT L'ACCUEIL
+   Les réglages faits sur la page d'accueil n'avaient pas été reportés :
+   voile des photos, discipline de la terre cuite, alignements, largeur de ligne.
+   ========================================================================== */
+/* ---------- 38.a Destinations : les photos redeviennent visibles ---------- */
+/* Le voile montait à 90 % : onze rectangles noirs identiques dans la page
+   dont tout l'objet est de montrer les régions. */
+.dcard::after{
+  background:linear-gradient(180deg,
+    rgba(18,19,27,0) 0%,
+    rgba(18,19,27,.14) 42%,
+    rgba(18,19,27,.55) 72%,
+    rgba(14,15,21,.86) 100%);
+}
+.dcard:hover::after{
+  background:linear-gradient(180deg,
+    rgba(192,90,51,.14) 0%,
+    rgba(18,19,27,.26) 45%,
+    rgba(18,19,27,.66) 74%,
+    rgba(14,15,21,.9) 100%);
+}
+.dcard img{
+  filter:saturate(.94) contrast(1.02);
+}
+.dcard:hover img{
+  filter:none;
+}
+/* Le texte reste lisible malgré le voile allégé */
+.dcard-body h3, .dcard-body .dcard-place{
+  text-shadow:0 1px 14px rgba(0,0,0,.55);
+}
+.dcard-body p{
+  text-shadow:0 1px 12px rgba(0,0,0,.5);
+}
+/* Deux lignes suffisent pour une accroche centrée */
+.text-center .sec-text{
+  max-width:620px;
+}
+/* ---------- 38.b Le tampon ne percute plus le bouton « Réserver » ---------- */
+/* Mesuré : chevauchement de 14 px à 1440, et le bouton entrait de 130 px
+   dans le tampon à 1280 et 1200. */
+.page-hero .stamp{
+  top:auto;
+  bottom:26px;
+  transform:rotate(-11deg);
+}
+@media (max-width:1359px){
+  .page-hero .stamp{
+    display:none;
+  }
+}
+/* ---------- 38.c Discipline de la terre cuite ---------- */
+/* Règle : la terre cuite signale un prix, une remise ou l'action décisive.
+   Elle ne sert ni d'icône, ni de puce, ni de fond décoratif. */
+/* Contact : quatre aplats pleins pour des icônes sociales — le pire écart */
+.widget .social a{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--secondary);
+}
+.widget .social a:hover{
+  background:var(--secondary);
+  border-color:var(--secondary);
+  color:#fff;
+}
+/* Blog : six pastilles de date en aplat dans une seule grille */
+.post-date{
+  background:var(--secondary);
+  color:#fff;
+}
+.post-date small{
+  color:var(--cream);
+}
+/* Listing : cinq boutons radio cochés par défaut, donc cinq aplats au repos */
+.opt input:checked{
+  border-color:var(--secondary);
+  background:var(--secondary);
+}
+.opt input:focus-visible{
+  outline-color:var(--secondary);
+}
+.views .view.active{
+  background:var(--secondary);
+  border-color:var(--secondary);
+  color:#fff;
+}
+/* À propos : la pastille « 14 ans » était le bloc le plus lourd de la page */
+.about-img .badge-exp{
+  background:var(--secondary);
+  color:#fff;
+  padding:18px 22px;
+  box-shadow:0 18px 40px rgba(14,15,21,.3);
+}
+.about-img .badge-exp strong{
+  font-size:30px;
+  color:var(--cream);
+}
+.about-img .badge-exp span{
+  font-family:var(--font-data);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+}
+/* ---------- 38.d L'action décisive porte la terre cuite sur chaque page ---------- */
+.enquiry .btn, .row-split form[data-demo] .btn{
+  background:var(--primary);
+  color:#fff;
+}
+.enquiry .btn:hover, .row-split form[data-demo] .btn:hover{
+  background:var(--primary-dark);
+  color:#fff;
+}
+/* ... mais la lettre d'information n'est pas une action décisive */
+.newsletter button{
+  background:var(--primary);
+}
+/* ---------- 38.e Alignements : plus de texte centré dans une carte ---------- */
+.contact-card{
+  text-align:left;
+}
+.contact-card i{
+  margin-inline:0;
+}
+.team{
+  text-align:left;
+}
+.team h4{
+  margin-top:16px;
+}
+/* ---------- 38.f Article : une ligne se lit à 75 signes, pas à 110 ---------- */
+/* Mesuré : 784 px à 16 px ≈ 105 signes par ligne. On borne la colonne entière
+   (et non chaque élément en « ch », qui donnerait une largeur différente
+   selon la taille de police et un bord gauche en dents de scie). */
+.post-article{
+  max-width:640px;
+}
+.post-article p{
+  font-size:17px;
+  line-height:1.75;
+}
+.post-article h3{
+  margin-top:40px;
+}
+@media (max-width:1100px){
+  .post-article{
+    max-width:none;
+  }
+}
+@media (max-width:767px){
+  .about-img .badge-exp{
+    padding:14px 18px;
+  }
+  .about-img .badge-exp strong{
+    font-size:26px;
+  }
+}
+/* ---------- 38.g Deux sections claires qui se suivent ne sont pas séparées
+   par 220 px de blanc : le même réglage que sur l'accueil, généralisé ---------- */
+.section + .section:not(.bg-ink), .section-sm + .section:not(.bg-ink){
+  padding-top:86px;
+}
+@media (max-width:767px){
+  .section + .section:not(.bg-ink), .section-sm + .section:not(.bg-ink){
+    padding-top:66px;
+  }
+}
+/* Les pastilles sociales ne sautent plus au survol : même règle que les boutons */
+.social a{
+  transition:background-color .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease);
+}
+.social a:hover{
+  transform:none;
+}
+/* L'encadré « Besoin d'un conseil ? » n'est pas collé au panneau de filtres */
+.filters-help{
+  margin-top:22px;
+}
+.post-article > img{
+  width:100%;
+}
+/* ==========================================================================
+   39. LE MOTEUR DE RECHERCHE MONTE DANS LE HÉRO
+   Il occupait une section entière de 320 px pour une seule ligne de champs,
+   posée dans du blanc sans attache. Il est désormais l'aboutissement du héro :
+   sur-titre → titre → accroche → recherche → destinations.
+   Le bouton « Nos circuits » doublait l'entrée « Circuits » du menu, et le
+   relevé de coordonnées répétait ce que le bandeau défilant dit juste en dessous.
+   ========================================================================== */
+.hero .search-bar{
+  position:relative;
+  z-index:3;
+  margin-top:40px;
+  border-color:rgba(255,255,255,.28);
+}
+/* Le bandeau défilant suit directement le héro : les cartes débordent de 60 px,
+   il leur faut de l'air avant l'aplat sombre. */
+.hero + .ticker{
+  margin-top:112px;
+}
+/* Le repli mobile */
+.search-toggle{
+  display:none;
+}
+@media (max-width:1199px){
+  .hero .search-bar{
+    margin-top:34px;
+  }
+}
+@media (max-width:767px){
+  .hero{
+    padding-block:132px 0;
+  }
+  .hero .search-bar{
+    display:none;
+    margin-top:18px;
+    padding:18px;
+  }
+  .hero .search-bar.open{
+    display:grid;
+  }
+  .search-toggle{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:11px;
+    width:100%;
+    margin-top:30px;
+    position:relative;
+    z-index:3;
+    padding:16px 24px;
+    border:0;
+    cursor:pointer;
+    background:var(--cream);
+    color:var(--secondary);
+    font-family:var(--font);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    transition:background-color .25s var(--ease),color .25s var(--ease);
+  }
+  .search-toggle.is-open{
+    background:var(--secondary);
+    color:#fff;
+  }
+  .hero + .ticker{
+    margin-top:86px;
+  }
+}
+/* Le tampon remonte : la barre de recherche traverse désormais le milieu du héro */
+.hero .stamp{
+  top:188px;
+  transform:rotate(-11deg);
+}
+/* Dans une barre blanche, l'action décisive reprend la terre cuite */
+.hero .search-bar .btn{
+  background:var(--primary);
+  color:#fff;
+}
+.hero .search-bar .btn:hover{
+  background:var(--primary-dark);
+  color:#fff;
+}
+.hero-cards{
+  margin-top:28px;
+}
+@media (max-width:1199px){
+  .hero-cards{
+    margin-top:24px;
+  }
+}
+@media (max-width:767px){
+  .hero-cards{
+    margin-top:26px;
+  }
+}
+/* La barre de recherche est un bloc blanc posé sur une photo : son texte ne doit
+   pas hériter du blanc du héro, sinon les listes déroulantes paraissent vides. */
+.hero .search-bar select, .hero .search-bar input, .hero .search-bar option{
+  color:var(--title);
+}
+/* ==========================================================================
+   40. HÉRO — trois réglages mesurés, et la version compacte
+   ========================================================================== */
+/* ---------- 40.1 Le tampon disparaît avant de toucher le titre ---------- */
+/* Mesuré (largeur réelle de la première ligne, pas la boîte du h1) :
+   1440 → 90 px d'écart · 1366 → 53 px · 1280 → 10 px · 1200 → 30 px de CHEVAUCHEMENT.
+   Même seuil que les pages intérieures. */
+@media (max-width:1359px){
+  .hero .stamp{
+    display:none;
+  }
+}
+/* ---------- 40.2 Une progression de largeurs, pas une cassure ---------- */
+/* C'était 720 (accroche) → 860 (titre) → 1180 (recherche), soit +19 % puis +37 %.
+   La barre reste l'élément le plus large — c'est le point d'appui — mais elle
+   appartient désormais à la colonne au lieu de sembler venir d'une autre page. */
+.hero .search-bar{
+  max-width:1000px;
+  margin-inline:auto;
+}
+/* ---------- 40.3 Le titre ne colle plus au menu ---------- */
+/* L'en-tête se termine à 141 px et le sur-titre commençait à 186 : 45 px. */
+.hero{
+  padding-top:212px;
+}
+/* ---------- 40.4 Version compacte : le héro se referme sur la recherche ---------- */
+/* Les cartes de destination sont mises de côté (voir le commentaire dans index.html).
+   Sans elles, plus rien ne déborde sous le héro : il lui faut son propre bas de page
+   et le bandeau défilant reprend sa place. */
+.hero--compact{
+  padding-bottom:152px;
+}
+.hero--compact + .ticker{
+  margin-top:0;
+}
+@media (max-width:1199px){
+  .hero{
+    padding-top:186px;
+  }
+  .hero--compact{
+    padding-bottom:124px;
+  }
+}
+@media (max-width:767px){
+  .hero{
+    padding-top:146px;
+  }
+  .hero--compact{
+    padding-bottom:90px;
+  }
+  .hero .search-bar{
+    max-width:none;
+  }
+}
+/* Barre resserrée : « Toutes les destinations » est l'intitulé le plus long,
+   « Durée » le plus court — les colonnes cessent d'être égales. */
+.hero .search-bar{
+  grid-template-columns:1.09fr 1.15fr .82fr .96fr auto;
+}
+.hero .search-bar select{
+  font-size:15px;
+  padding-inline:12px 10px;
+}
+@media (max-width:1199px){
+  .hero .search-bar{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+@media (max-width:767px){
+  .hero .search-bar{
+    grid-template-columns:1fr;
+  }
+}
+/* ==========================================================================
+   41. BARRE DE RECHERCHE — encre translucide
+   Deux défauts corrigés :
+   a) le blanc pur n'existait nulle part ailleurs comme aplat de structure
+      (nav fixe, bandeau, encart d'offre, pied de page : tous en encre),
+      la barre paraissait donc collée sur la photo plutôt que dessinée avec elle ;
+   b) fond #fff et champs #f4f4f5, soit 4 % d'écart : les champs ne se lisaient
+      pas comme des zones de saisie mais comme des taches.
+   La barre reprend les trois valeurs de la charte — encre, crème, terre cuite —
+   et laisse la photographie transparaître.
+   ========================================================================== */
+.hero .search-bar{
+  background:rgba(23,25,36,.72);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(242,228,213,.22);
+  box-shadow:0 24px 60px rgba(10,11,16,.45);
+  color:rgba(255,255,255,.9);
+}
+.hero .search-bar .field label{
+  color:rgba(242,228,213,.72);
+}
+.hero .search-bar select{
+  background:transparent;
+  border:0;
+  border-bottom:1px solid rgba(242,228,213,.34);
+  border-radius:0;
+  color:#fff;
+  padding:10px 0;
+  transition:border-color .25s var(--ease);
+}
+.hero .search-bar select:hover{
+  border-bottom-color:rgba(242,228,213,.6);
+}
+.hero .search-bar select:focus{
+  border-bottom-color:var(--cream);
+  background:transparent;
+}
+.hero .search-bar select:focus-visible{
+  outline:none;
+}
+/* La liste déroulante est rendue par le système : il lui faut ses propres valeurs */
+.hero .search-bar select option{
+  color:var(--title);
+  background:#fff;
+}
+/* Navigateurs sans backdrop-filter : on compense par un fond plus dense */
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .hero .search-bar{
+    background:rgba(23,25,36,.88);
+  }
+}
+/* ==========================================================================
+   42. TITRES EN JOST
+   Jost est une géométrique (squelette Futura) ; Bodoni Moda était une didone.
+   Le réglage typographique ne se transpose pas tel quel :
+   - `font-optical-sizing` n'a plus d'objet (Jost n'a pas d'axe « opsz ») ;
+   - une géométrique a une hauteur d'x plus grande et des jambages plus courts :
+     l'interlignage se resserre, mais pas autant qu'une didone ;
+   - aux grands corps elle demande un crénage négatif plus franc, sinon les
+     lettres rondes (O, C, G) paraissent flotter ;
+   - à graisse égale elle pèse plus lourd : on descend d'un cran.
+   ========================================================================== */
+h1, h2, h3{
+  font-family:var(--font-display);
+  font-optical-sizing:auto;
+  /* sans effet sur Jost, sans nuisance non plus */
+  font-weight:500;
+  letter-spacing:-.018em;
+}
+h1{
+  font-weight:500;
+  line-height:1.08;
+  letter-spacing:-.028em;
+}
+h2{
+  font-weight:500;
+  line-height:1.14;
+  letter-spacing:-.022em;
+}
+h3{
+  font-weight:500;
+  line-height:1.24;
+  letter-spacing:-.014em;
+}
+/* Les chiffres et les noms posés sur photo suivent la même correction */
+.price, .counter strong, .info-box strong, .filter-count strong, .listing-count strong, .no-results strong, .rating-score strong, .hero-card-name, .dest-body h3{
+  letter-spacing:-.02em;
+}
+.price, .counter strong, .rating-score strong{
+  font-weight:600;
+}
+.hero-card-name{
+  font-weight:600;
+}
+/* Le tampon garde son allure gravée : une géométrique y gagne de l'espacement */
+.stamp strong{
+  font-weight:500;
+  letter-spacing:.1em;
+}
+/* Un seul ajustement de corps : Jost a une hauteur d'x nettement supérieure,
+   le même chiffre paraît plus gros que dans Bodoni. */
+h1{
+  font-size:clamp(35px,4.9vw,58px);
+}
+h2{
+  font-size:clamp(27px,3.4vw,37px);
+}
+/* Jost est plus étroite que la didone qu'elle remplace : les titres tiennent
+   davantage sur la première ligne et laissent un mot orphelin sur la seconde.
+   `text-wrap:balance` égalise les lignes ; sans support, le rendu reste correct. */
+h1, h2, h3, .sec-title, .tour-body h3, .post-body h3, .dcard-body h3, .offer h2{
+  text-wrap:balance;
+}
+/* ==========================================================================
+   43. NAVIGATION PAR ACTIVITÉ
+   La structure suit celle de terrasudadventures.com : les visiteurs de
+   l'agence cherchent un type de voyage (trek, tour privé, excursion,
+   événement), pas une rubrique éditoriale. « Treks & Randonnées » porte le
+   sous-menu des massifs, comme sur le site actuel.
+   ========================================================================== */
+.nav-drop{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+}
+.nav-drop > a{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.nav-drop > a i{
+  font-size:8px;
+  transition:transform .3s var(--ease);
+}
+.nav-drop:hover > a i, .nav-drop:focus-within > a i{
+  transform:rotate(180deg);
+}
+.nav-sub{
+  position:absolute;
+  top:100%;
+  left:-18px;
+  z-index:60;
+  min-width:330px;
+  background:var(--secondary);
+  border:1px solid rgba(242,228,213,.16);
+  box-shadow:0 26px 60px rgba(10,11,16,.5);
+  padding:10px 0;
+  margin-top:14px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-8px);
+  transition:opacity .25s var(--ease),transform .25s var(--ease),visibility .25s;
+}
+.nav-drop:hover .nav-sub, .nav-drop:focus-within .nav-sub{
+  opacity:1;
+  visibility:visible;
+  transform:none;
+}
+/* pont invisible : la souris ne perd pas le menu en descendant */
+.nav-sub::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:-14px;
+  height:14px;
+}
+.nav-sub a{
+  display:block;
+  padding:11px 22px;
+  font-family:var(--font);
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0;
+  text-transform:none;
+  color:rgba(255,255,255,.78);
+  line-height:1.35;
+  transition:background-color .2s var(--ease),color .2s var(--ease);
+}
+.nav-sub a::after{
+  display:none;
+}
+.nav-sub a:hover, .nav-sub a:focus-visible{
+  background:rgba(242,228,213,.08);
+  color:var(--cream);
+}
+/* Dans le tiroir mobile (le menu bascule dès 1199 px), le sous-menu des massifs
+   ferait neuf entrées de plus : l'entrée « Treks & Randonnées » suffit, elle ouvre
+   le listing déjà filtré. Les massifs restent accessibles depuis les filtres. */
+@media (max-width:1199px){
+  .nav-drop{
+    display:block;
+    width:100%;
+  }
+  .nav-drop > a{
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .nav-drop > a i, .nav-sub{
+    display:none;
+  }
+}
+/* Six entrées par activité, dont deux en deux mots : la barre passait sur deux
+   lignes. Chasse et interlettrage resserrés, pas de retour à la ligne. */
+@media (min-width:1200px){
+  .nav{
+    gap:24px;
+  }
+  .nav a{
+    font-size:11px;
+    letter-spacing:.1em;
+    white-space:nowrap;
+  }
+  .nav-sub a{
+    font-size:13px;
+    letter-spacing:0;
+    white-space:normal;
+  }
+}
+@media (min-width:1200px) and (max-width:1439px){
+  .nav{
+    gap:18px;
+  }
+  .nav a{
+    font-size:10.5px;
+    letter-spacing:.07em;
+  }
+}
+/* ==========================================================================
+   44. DEUX GABARITS AJOUTÉS — page d'activité et page de destination
+   Le site actuel expose 9 pages d'activité et 18 pages de destination ;
+   il n'en existait aucune ici, seulement un listing filtré. Ces deux gabarits
+   complètent le système sans introduire de nouveau vocabulaire : ils
+   réemploient .trip-facts, .tour-card, .sec-head--row, .atlas-*, .offer.
+   Trois composants seulement sont nouveaux : le calendrier de saison,
+   l'index de liens, et le détail cartographique.
+   ========================================================================== */
+/* ---------- 44.1 Calendrier de saison ---------- */
+/* Un tableau de douze mois : c'est la question que pose tout marcheur avant
+   de réserver, et aucun de nos composants ne savait y répondre. */
+.season{
+  border:1px solid var(--line);
+  padding:26px 28px 22px;
+  margin-top:40px;
+}
+.season h3{
+  font-size:19px;
+  margin-bottom:18px;
+}
+.season-scale{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:4px;
+  list-style:none;
+  margin:0 0 18px;
+  padding:0;
+}
+.season-scale li{
+  position:relative;
+  padding-top:34px;
+  text-align:center;
+}
+.season-scale li::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:26px;
+  background:var(--line);
+}
+.season-scale li[data-etat="ideal"]::before{
+  background:var(--primary);
+}
+.season-scale li[data-etat="bon"]::before{
+  background:rgba(192,90,51,.42);
+}
+.season-scale li[data-etat="moyen"]::before{
+  background:var(--line);
+}
+.season-scale span{
+  font-family:var(--font-data);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--body);
+}
+.season-key{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px 20px;
+  margin:0;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted-cool);
+}
+.season-key span{
+  width:12px;
+  height:12px;
+  flex:none;
+  margin-right:-10px;
+}
+.season-key span[data-etat="ideal"]{
+  background:var(--primary);
+}
+.season-key span[data-etat="bon"]{
+  background:rgba(192,90,51,.42);
+}
+.season-key span[data-etat="moyen"]{
+  background:var(--line);
+}
+@media (max-width:620px){
+  .season{
+    padding:20px 18px 18px;
+  }
+  .season-scale{
+    grid-template-columns:repeat(6,1fr);
+    gap:6px 4px;
+  }
+  .season-scale li{
+    padding-top:28px;
+  }
+  .season-scale li::before{
+    height:20px;
+  }
+}
+/* ---------- 44.2 Index de liens ---------- */
+/* Une liste, pas une grille de cartes : les pages sœurs sont une navigation,
+   pas une vitrine. Deux colonnes séparées par un filet, sans image. */
+.link-index{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 48px;
+  border-top:1px solid var(--line);
+}
+.link-index li{
+  border-bottom:1px solid var(--line);
+}
+.link-index a{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:24px;
+  padding:19px 0;
+  transition:padding-left .25s var(--ease),color .25s var(--ease);
+}
+.link-index a:hover{
+  padding-left:10px;
+}
+.link-index strong{
+  font-family:var(--font);
+  font-weight:600;
+  font-size:17px;
+  color:var(--title);
+}
+.link-index a:hover strong{
+  color:var(--primary);
+}
+.link-index span{
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-align:right;
+  flex:none;
+}
+.link-index--ink{
+  border-top-color:rgba(242,228,213,.2);
+}
+.link-index--ink li{
+  border-bottom-color:rgba(242,228,213,.2);
+}
+.link-index--ink strong{
+  color:#fff;
+}
+.link-index--ink a:hover strong{
+  color:var(--cream);
+}
+.link-index--ink span{
+  color:rgba(255,255,255,.5);
+}
+@media (max-width:767px){
+  .link-index{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+  .link-index a{
+    padding:16px 0;
+  }
+  .link-index strong{
+    font-size:16px;
+  }
+  .link-index span{
+    font-size:10px;
+    letter-spacing:.08em;
+  }
+}
+/* ---------- 44.3 Détail cartographique ---------- */
+/* Le même tracé que la carte d'accueil, recadré sur une région : la page
+   de destination situe le lieu sans réapprendre une nouvelle image. */
+.atlas-svg--zoom{
+  max-width:520px;
+}
+.atlas-focus{
+  fill:rgba(192,90,51,.1);
+  stroke:var(--primary);
+  stroke-width:1;
+  stroke-dasharray:4 6;
+}
+.atlas-name--sub{
+  fill:#98938b;
+  font-size:10px;
+  letter-spacing:.16em;
+}
+/* Sur fond clair, le tracé et les étiquettes s'inversent */
+.section:not(.bg-ink) .atlas-outline{
+  fill:rgba(27,29,42,.04);
+  stroke:rgba(27,29,42,.26);
+}
+.section:not(.bg-ink) .atlas-name{
+  fill:var(--title);
+}
+.section:not(.bg-ink) .atlas-name--sub{
+  fill:var(--muted);
+}
+.section:not(.bg-ink) .atlas-intro .sec-text{
+  color:var(--body);
+}
+/* ---------- 44.4 Colonne d'appoint sur ces deux pages ---------- */
+.row-split > .sidebar .trip-facts{
+  margin-bottom:22px;
+}
+/* ---------- 44.5 Correctifs des deux gabarits ---------- */
+/* Le détail cartographique doit être recadré : sans overflow:hidden, le tracé
+   complet du pays déborde du viewBox et traverse la page. */
+.atlas-svg--zoom{
+  overflow:hidden;
+  width:100%;
+  height:auto;
+  border:1px solid var(--line);
+  background:var(--smoke);
+}
+.section:not(.bg-ink) .atlas-svg--zoom .atlas-outline{
+  fill:rgba(27,29,42,.05);
+  stroke:rgba(27,29,42,.24);
+}
+/* Le relevé chiffré était écrit pour un fond sombre : il devient invisible sur blanc. */
+.section:not(.bg-ink) .atlas-figures{
+  color:var(--muted-cool);
+}
+/* Dans une colonne latérale, la fiche technique n'a pas la place de deux colonnes :
+   « Altitude max — 4 167 m » tombait sur trois lignes. */
+.sidebar .trip-facts ul, .row-split > .sidebar .trip-facts ul{
+  grid-template-columns:1fr;
+  gap:15px;
+}
+/* La liste à coches respire */
+.check-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.check-list li{
+  display:flex;
+  gap:13px;
+  align-items:flex-start;
+  padding:11px 0;
+  border-bottom:1px solid var(--line);
+}
+.check-list li:last-child{
+  border-bottom:0;
+}
+.check-list i{
+  color:var(--primary);
+  font-size:13px;
+  margin-top:5px;
+  flex:none;
+}
+/* Le fil d'Ariane compte désormais trois niveaux sur les gabarits d'activité
+   et de destination : il doit pouvoir passer à la ligne. */
+.breadcrumb{
+  flex-wrap:wrap;
+  justify-content:center;
+  row-gap:6px;
+}
+.breadcrumb li{
+  max-width:100%;
+}
+@media (max-width:420px){
+  .breadcrumb{
+    font-size:10px;
+    gap:8px;
+  }
+  .breadcrumb li{
+    gap:8px;
+  }
+}
+/* ==========================================================================
+   45. ÉTATS DE FORMULAIRE
+   Aucun n'existait : ni erreur, ni envoi en cours, ni succès, ni échec.
+   Un backend branché sur des formulaires sans états ne peut rien dire à
+   l'utilisateur. Trois familles suffisent.
+   ========================================================================== */
+/* ---------- 45.1 Piège à robots ---------- */
+/* Hors écran plutôt que display:none : certains robots ignorent les champs masqués. */
+.hp{
+  position:absolute;
+  left:-9999px;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+/* ---------- 45.2 Champ en erreur ---------- */
+.field{
+  position:relative;
+}
+.field.is-error input, .field.is-error select, .field.is-error textarea{
+  border-color:var(--primary);
+  background:rgba(192,90,51,.04);
+}
+.field.is-error label{
+  color:var(--primary);
+}
+.field-error{
+  display:block;
+  margin-top:7px;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--primary);
+}
+.field:not(.is-error) .field-error{
+  display:none;
+}
+/* Sur la barre de recherche du héro, l'erreur reste lisible sur fond sombre */
+.hero .field.is-error input, .hero .field.is-error select{
+  border-bottom-color:var(--primary);
+}
+/* ---------- 45.3 Bouton en cours d'envoi ---------- */
+.btn.is-loading{
+  position:relative;
+  color:transparent !important;
+  pointer-events:none;
+}
+.btn.is-loading::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:15px;
+  height:15px;
+  margin:-8px 0 0 -8px;
+  border:2px solid rgba(255,255,255,.35);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:btn-spin .7s linear infinite;
+}
+.btn-outline.is-loading::after, .btn-white.is-loading::after{
+  border-color:rgba(27,29,42,.3);
+  border-top-color:var(--secondary);
+}
+@keyframes btn-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){
+  .btn.is-loading::after{
+    animation-duration:2s;
+  }
+}
+/* ---------- 45.4 Message de retour ---------- */
+.form-note{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin-top:20px;
+  padding:15px 18px;
+  font-size:15px;
+  line-height:1.55;
+  border-left:3px solid var(--line);
+  background:var(--smoke);
+  color:var(--body);
+}
+.form-note i{
+  margin-top:3px;
+  flex:none;
+}
+.form-note--ok{
+  border-left-color:#3f7d5c;
+  background:rgba(63,125,92,.07);
+  color:#2f5f45;
+}
+.form-note--ok i{
+  color:#3f7d5c;
+}
+.form-note--ko{
+  border-left-color:var(--primary);
+  background:rgba(192,90,51,.07);
+  color:var(--primary-dark);
+}
+.form-note--ko i{
+  color:var(--primary);
+}
+.form-note--demo{
+  border-left-color:var(--secondary);
+  background:var(--smoke);
+  color:var(--body);
+}
+.form-note--demo i{
+  color:var(--secondary);
+}
+/* Sur fond sombre */
+.bg-ink .form-note, .footer .form-note{
+  background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.82);
+}
+/* ---------- 45.5 Page de confirmation ---------- */
+.confirm{
+  max-width:640px;
+  margin-inline:auto;
+  text-align:center;
+}
+.confirm-mark{
+  width:64px;
+  height:64px;
+  margin:0 auto 26px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--primary);
+  color:var(--primary);
+  font-size:22px;
+  transform:rotate(45deg);
+}
+.confirm-mark i{
+  transform:rotate(-45deg);
+}
+.confirm .eyebrow{
+  justify-content:center;
+}
+.confirm h2{
+  margin-bottom:16px;
+}
+.confirm .lede{
+  margin-bottom:34px;
+}
+.confirm-ref{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  margin:0 0 30px;
+  background:var(--line);
+  border:1px solid var(--line);
+  text-align:left;
+}
+.confirm-ref > div{
+  background:#fff;
+  padding:18px 20px;
+}
+.confirm-ref dt{
+  font-family:var(--font-data);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+.confirm-ref dd{
+  margin:0;
+  font-family:var(--font-data);
+  font-size:15px;
+  font-weight:600;
+  color:var(--title);
+}
+.confirm-note{
+  font-size:15px;
+  color:var(--body);
+  margin-bottom:32px;
+}
+.confirm-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  justify-content:center;
+}
+@media (max-width:620px){
+  .confirm-ref{
+    grid-template-columns:1fr;
+  }
+  .confirm-actions .btn{
+    width:100%;
+  }
+}
+/* ==========================================================================
+   46. PARCOURS DE RÉSERVATION
+   Quatre étapes sur une seule page, avec un récapitulatif qui suit la lecture.
+   Toutes les données tarifaires sont portées par le HTML (data-prix, data-tarif,
+   data-unite) : le jour où un backend rend cette page, il n'a qu'à écrire ces
+   attributs — le calcul côté client ne change pas.
+   ========================================================================== */
+/* ---------- 46.1 Fil des étapes ---------- */
+.stepper{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  list-style:none;
+  margin:0 0 54px;
+  padding:0;
+  counter-reset:etape;
+  border-top:1px solid var(--line);
+}
+.stepper li{
+  counter-increment:etape;
+  position:relative;
+  padding:18px 16px 0;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.stepper li::before{
+  content:"";
+  position:absolute;
+  top:-1px;
+  left:0;
+  right:0;
+  height:2px;
+  background:transparent;
+}
+.stepper li::after{
+  content:counter(etape,decimal-leading-zero) " ";
+  color:inherit;
+  opacity:.6;
+}
+.stepper li.is-done{
+  color:var(--body);
+}
+.stepper li.is-done::before{
+  background:var(--line);
+}
+.stepper li.is-current{
+  color:var(--primary);
+}
+.stepper li.is-current::before{
+  background:var(--primary);
+}
+@media (max-width:700px){
+  .stepper{
+    grid-template-columns:repeat(4,1fr);
+    margin-bottom:36px;
+  }
+  .stepper li{
+    padding:14px 6px 0;
+    font-size:9px;
+    letter-spacing:.06em;
+  }
+  .stepper li span{
+    display:block;
+  }
+}
+/* ---------- 46.2 Deux colonnes, récapitulatif collant ---------- */
+.booking-layout{
+  display:grid;
+  grid-template-columns:1fr 372px;
+  gap:52px;
+  align-items:start;
+}
+.booking-aside{
+  position:sticky;
+  top:110px;
+}
+.etape[hidden]{
+  display:none;
+}
+.etape .sec-title{
+  margin-bottom:12px;
+}
+.etape > .sec-text{
+  margin-inline:0;
+  margin-bottom:28px;
+  max-width:560px;
+}
+.sous-titre{
+  font-family:var(--font);
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.02em;
+  margin:36px 0 16px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+.etape-note{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin-top:22px;
+  font-size:15px;
+  color:var(--body);
+}
+.etape-note i{
+  color:var(--primary);
+  margin-top:4px;
+}
+.champs-paire{
+  gap:20px;
+  margin-bottom:26px;
+}
+.champs-intro{
+  margin:0 0 18px;
+}
+.champs-suite{
+  margin-top:20px;
+}
+@media (max-width:1100px){
+  .booking-layout{
+    grid-template-columns:1fr;
+    gap:40px;
+  }
+  .booking-aside{
+    position:static;
+    order:-1;
+  }
+}
+/* ---------- 46.3 Départs ---------- */
+/* Une ligne par date : la disponibilité et le prix se lisent en colonne. */
+.departs{
+  border-top:1px solid var(--line);
+}
+.depart{
+  display:grid;
+  grid-template-columns:1fr 150px 92px 88px;
+  gap:18px;
+  align-items:center;
+  padding:17px 16px 17px 46px;
+  position:relative;
+  cursor:pointer;
+  border-bottom:1px solid var(--line);
+  transition:background-color .2s var(--ease);
+}
+.depart::before{
+  content:"";
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:16px;
+  height:16px;
+  border:1px solid var(--border);
+  background:#fff;
+}
+.depart:hover{
+  background:var(--smoke);
+}
+.depart input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.depart:has(input:checked){
+  background:rgba(192,90,51,.05);
+}
+.depart:has(input:checked)::before{
+  background:var(--primary);
+  border-color:var(--primary);
+  box-shadow:inset 0 0 0 3px #fff;
+}
+.depart:has(input:focus-visible)::before{
+  outline:2px solid var(--primary);
+  outline-offset:2px;
+}
+.depart-date{
+  font-family:var(--font);
+  font-weight:600;
+  font-size:16px;
+  color:var(--title);
+}
+.depart-etat{
+  font-family:var(--font-data);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.depart-etat[data-etat="ok"]{
+  color:#2f6347;   /* vert assombri : 3,4:1 → 5,1:1 sur blanc */
+}
+.depart-etat[data-etat="warn"]{
+  color:var(--primary);
+}
+.depart-etat[data-etat="off"]{
+  color:var(--muted);
+}
+.depart-places, .depart-prix{
+  font-family:var(--font-data);
+  font-size:13px;
+  color:var(--body);
+  text-align:right;
+}
+.depart-prix{
+  font-family:var(--font-display);
+  font-size:19px;
+  font-weight:600;
+  color:var(--title);
+  letter-spacing:-.02em;
+}
+.depart.is-off{
+  opacity:.45;
+  cursor:not-allowed;
+}
+.depart.is-off:hover{
+  background:transparent;
+}
+@media (max-width:760px){
+  .depart{
+    grid-template-columns:1fr auto;
+    gap:4px 14px;
+    padding:15px 14px 15px 42px;
+  }
+  .depart-date{
+    grid-column:1;
+  }
+  .depart-prix{
+    grid-column:2;
+    grid-row:1;
+  }
+  .depart-etat{
+    grid-column:1;
+  }
+  .depart-places{
+    grid-column:2;
+    text-align:right;
+  }
+}
+/* ---------- 46.4 Voyageurs ---------- */
+.pax{
+  border-top:1px solid var(--line);
+}
+.pax-row{
+  display:grid;
+  grid-template-columns:1fr 110px 132px;
+  gap:20px;
+  align-items:center;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.pax-qui strong{
+  display:block;
+  font-family:var(--font);
+  font-weight:600;
+  font-size:16px;
+  color:var(--title);
+}
+.pax-qui span{
+  font-size:14px;
+  color:var(--body);
+}
+.pax-prix{
+  font-family:var(--font-data);
+  font-size:14px;
+  color:var(--body);
+  text-align:right;
+}
+.compteur{
+  display:grid;
+  grid-template-columns:38px 1fr 38px;
+  border:1px solid var(--border);
+}
+.compteur button{
+  border:0;
+  background:#fff;
+  cursor:pointer;
+  font-size:17px;
+  line-height:1;
+  color:var(--title);
+  padding:10px 0;
+  transition:background-color .2s var(--ease),color .2s var(--ease);
+}
+.compteur button:hover{
+  background:var(--secondary);
+  color:#fff;
+}
+.compteur button:disabled{
+  color:var(--border);
+  cursor:not-allowed;
+  background:#fff;
+}
+.compteur input{
+  border:0;
+  border-inline:1px solid var(--border);
+  text-align:center;
+  background:#fff;
+  font-family:var(--font-data);
+  font-size:15px;
+  font-weight:600;
+  color:var(--title);
+  padding:9px 0;
+  -moz-appearance:textfield;
+}
+.compteur input::-webkit-outer-spin-button, .compteur input::-webkit-inner-spin-button{
+  -webkit-appearance:none;
+  margin:0;
+}
+@media (max-width:600px){
+  .pax-row{
+    grid-template-columns:1fr 132px;
+    gap:8px 16px;
+  }
+  .pax-prix{
+    grid-column:1;
+    grid-row:2;
+    text-align:left;
+  }
+  .compteur{
+    grid-row:1 / span 2;
+  }
+}
+/* ---------- 46.5 Options ---------- */
+.extras{
+  border-top:1px solid var(--line);
+}
+.extra{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:16px;
+  align-items:center;
+  padding:16px 16px 16px 46px;
+  position:relative;
+  cursor:pointer;
+  border-bottom:1px solid var(--line);
+  transition:background-color .2s var(--ease);
+}
+.extra::before{
+  content:"";
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:16px;
+  height:16px;
+  border:1px solid var(--border);
+  background:#fff;
+}
+.extra:hover{
+  background:var(--smoke);
+}
+.extra input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.extra:has(input:checked){
+  background:rgba(192,90,51,.05);
+}
+.extra:has(input:checked)::before{
+  background:var(--primary);
+  border-color:var(--primary);
+  box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 5px var(--primary);
+}
+.extra-nom strong{
+  display:block;
+  font-family:var(--font);
+  font-weight:600;
+  font-size:16px;
+  color:var(--title);
+}
+.extra-nom span{
+  font-size:14px;
+  color:var(--body);
+}
+.extra-prix{
+  font-family:var(--font-data);
+  font-size:14px;
+  font-weight:600;
+  color:var(--title);
+  white-space:nowrap;
+}
+/* ---------- 46.6 Participants ---------- */
+.participant{
+  border:1px solid var(--line);
+  padding:20px 22px;
+  margin-bottom:14px;
+}
+.participant legend{
+  font-family:var(--font-data);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--primary);
+  padding:0 8px;
+  margin-left:-8px;
+}
+.participant .row{
+  gap:16px;
+}
+/* ---------- 46.7 Choix (règlement, paiement) ---------- */
+.choix{
+  display:grid;
+  gap:12px;
+}
+.choix--compact{
+  grid-template-columns:repeat(3,1fr);
+}
+.choix-item{
+  display:block;
+  position:relative;
+  cursor:pointer;
+  padding:18px 20px 16px 46px;
+  border:1px solid var(--border);
+  transition:border-color .2s var(--ease),background-color .2s var(--ease);
+}
+.choix-item::before{
+  content:"";
+  position:absolute;
+  left:18px;
+  top:21px;
+  width:16px;
+  height:16px;
+  border:1px solid var(--border);
+  border-radius:50%;
+  background:#fff;
+}
+.choix-item:hover{
+  background:var(--smoke);
+}
+.choix-item input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.choix-item:has(input:checked){
+  border-color:var(--secondary);
+  background:rgba(27,29,42,.03);
+}
+.choix-item:has(input:checked)::before{
+  background:var(--secondary);
+  border-color:var(--secondary);
+  box-shadow:inset 0 0 0 3px #fff;
+}
+.choix-nom{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+}
+.choix-nom strong{
+  font-family:var(--font);
+  font-weight:600;
+  font-size:16px;
+  color:var(--title);
+}
+.choix-nom b{
+  font-family:var(--font-display);
+  font-size:20px;
+  font-weight:600;
+  color:var(--primary);
+  letter-spacing:-.02em;
+}
+.choix-item em{
+  display:block;
+  font-style:normal;
+  font-size:14px;
+  color:var(--body);
+  margin-top:4px;
+}
+@media (max-width:760px){
+  .choix--compact{
+    grid-template-columns:1fr;
+  }
+}
+.field--case{
+  margin-top:16px;
+}
+.opt--case{
+  align-items:flex-start;
+  gap:13px;
+  font-size:15px;
+  line-height:1.55;
+  color:var(--body);
+}
+.opt--case input{
+  margin-top:3px;
+  flex:none;
+}
+.opt--case a{
+  color:var(--primary);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+/* ---------- 46.8 Barre de navigation des étapes ---------- */
+.booking-nav{
+  display:flex;
+  gap:14px;
+  justify-content:flex-end;
+  align-items:center;
+  margin-top:40px;
+  padding-top:26px;
+  border-top:1px solid var(--line);
+}
+.booking-nav [data-nav="prec"]{
+  margin-right:auto;
+}
+@media (max-width:520px){
+  .booking-nav{
+    flex-direction:column-reverse;
+    align-items:stretch;
+  }
+  .booking-nav .btn{
+    width:100%;
+  }
+  .booking-nav [data-nav="prec"]{
+    margin-right:0;
+  }
+}
+/* ---------- 46.9 Récapitulatif ---------- */
+.recap{
+  border:1px solid var(--line);
+  padding:26px 26px 24px;
+  background:#fff;
+}
+.recap h3{
+  font-size:19px;
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.recap-circuit{
+  font-family:var(--font);
+  font-weight:600;
+  font-size:16px;
+  line-height:1.35;
+  color:var(--title);
+  margin:0 0 20px;
+}
+.recap-circuit span{
+  display:block;
+  margin-top:5px;
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.recap-lignes{
+  margin:0 0 16px;
+  display:grid;
+  gap:11px;
+}
+.recap-lignes > div{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:baseline;
+}
+.recap-lignes dt{
+  font-family:var(--font-data);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.recap-lignes dd{
+  margin:0;
+  font-size:15px;
+  font-weight:600;
+  color:var(--title);
+  text-align:right;
+}
+.recap-detail{
+  list-style:none;
+  margin:0;
+  padding:16px 0 0;
+  border-top:1px solid var(--line);
+  display:grid;
+  gap:9px;
+}
+.recap-detail:empty{
+  display:none;
+}
+.recap-detail li{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  font-size:14px;
+  color:var(--body);
+}
+.recap-detail li span:last-child{
+  font-family:var(--font-data);
+  color:var(--title);
+  white-space:nowrap;
+}
+.recap-detail li.est-option span:first-child::before{
+  content:"+ ";
+  color:var(--primary);
+}
+.recap-total{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:16px;
+  margin-top:18px;
+  padding-top:16px;
+  border-top:1px solid var(--secondary);
+}
+.recap-total span{
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--title);
+}
+.recap-total strong{
+  font-family:var(--font-display);
+  font-size:30px;
+  font-weight:600;
+  color:var(--primary);
+  letter-spacing:-.02em;
+}
+.recap-acompte{
+  margin:10px 0 0;
+  font-family:var(--font-data);
+  font-size:12px;
+  color:var(--body);
+}
+.recap-acompte strong{
+  color:var(--title);
+}
+.recap-note{
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+  margin:20px 0 0;
+  padding-top:16px;
+  border-top:1px solid var(--line);
+  font-size:13px;
+  line-height:1.5;
+  color:var(--muted);
+}
+.recap-note i{
+  margin-top:3px;
+  color:var(--muted);
+}
+/* ---------- 46.10 Encadré de la fiche circuit ---------- */
+/* Il résumait mal un formulaire qu'il dupliquait : il devient un aperçu
+   des conditions de départ, et renvoie au parcours de réservation. */
+.booking-apercu{
+  list-style:none;
+  margin:0 0 22px;
+  padding:0;
+  display:grid;
+  gap:14px;
+}
+.booking-apercu li{
+  display:flex;
+  gap:13px;
+  align-items:flex-start;
+}
+.booking-apercu i{
+  color:var(--primary);
+  font-size:14px;
+  margin-top:4px;
+  width:17px;
+  flex:none;
+  text-align:center;
+}
+.booking-apercu span{
+  display:block;
+  font-size:15px;
+  color:var(--title);
+  line-height:1.45;
+}
+.booking-apercu em{
+  display:block;
+  font-style:normal;
+  font-family:var(--font-data);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:2px;
+}
+.booking-note{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+  margin:14px 0 0;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* ==========================================================================
+   47. ACCESSIBILITÉ DU PARCOURS ET CONTRASTES
+   Trois manques mesurés : le fil d'étapes n'était ni annoncé ni parcourable au
+   clavier, les groupes d'options n'étaient pas déclarés comme tels, et trois
+   textes passaient sous le seuil AA de 4,5:1.
+   ========================================================================== */
+
+/* ---------- 47.1 Contenu réservé aux lecteurs d'écran ---------- */
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;
+}
+
+/* ---------- 47.2 Le fil d'étapes devient cliquable au clavier ---------- */
+.stepper li button{
+  all:unset;display:block;width:100%;cursor:pointer;color:inherit;font:inherit;
+}
+.stepper li button[disabled]{cursor:default}
+.stepper li button:focus-visible{outline:2px solid var(--primary);outline-offset:4px}
+.stepper li:not(.is-done) button{cursor:default}
+
+/* Les groupes d'options sont des fieldset : on neutralise leur mise en forme native */
+fieldset.departs,fieldset.extras,fieldset.choix{border:0;padding:0;margin:0;min-width:0}
+fieldset.departs{border-top:1px solid var(--line)}
+fieldset.extras{border-top:1px solid var(--line)}
+
+/* Un titre rendu focalisable ne doit pas afficher de contour au clic */
+.etape .sec-title:focus{outline:none}
+.etape .sec-title:focus-visible{outline:2px solid var(--primary);outline-offset:4px}
+
+/* ---------- 47.3 Contrastes : le correctif est remonté à la source ---------- */
+/* Les gris de service et la terre cuite ont été corrigés dans la palette
+   (--primary, --muted, --muted-cool) plutôt qu'empilés ici. Ne restent que les
+   cas où la couleur dépend du fond, qu'une variable seule ne peut pas trancher. */
+
+/* Terre cuite sur aplat sombre : le rapport y tombe à 3,3:1, on passe au crème */
+.bg-ink .eyebrow,.hero .eyebrow,.offer .eyebrow,.page-hero .eyebrow,
+.footer .form-note--ko{color:var(--cream)}
+
+/* ==========================================================================
+   48. LISTES DÉROULANTES
+   La liste ouverte d'un <select> est dessinée par le système d'exploitation :
+   aucune propriété CSS ne l'atteint. C'est elle qu'on voyait en bleu Windows
+   au milieu d'une charte encre et terre cuite. Le script remplace le panneau
+   (voir « LISTES DÉROULANTES » dans main.js) ; la mise en forme est ici.
+   Le <select> lui-même reste le contrôle : étiquette, tabulation, état
+   d'erreur et valeur ne bougent pas.
+   ========================================================================== */
+
+/* ---------- 48.1 Le champ fermé : chevron dessiné plutôt que celui du système ---------- */
+select{
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' fill='none' stroke='%236f6a64' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  padding-right:38px;
+  transition:border-color .3s, background-color .3s;
+}
+select::-ms-expand{display:none}
+
+/* Les règles plus anciennes posent « background » en raccourci (transparent,
+   #fff, var(--smoke)) : le raccourci remet background-repeat à « repeat » et le
+   chevron se répétait en frise. Même chose pour le retrait à droite, écrasé par
+   le « padding » des contextes. On les réaffirme avec la même portée, plus bas
+   dans la cascade. */
+:is(.field, .search-bar, .sort, .hero .search-bar) select,
+:is(.field, .search-bar, .sort, .hero .search-bar) select:hover,
+:is(.field, .search-bar, .sort, .hero .search-bar) select:focus{
+  background-repeat:no-repeat;
+}
+:is(.field, .search-bar) select,
+:is(.field, .search-bar) select:focus{
+  background-position:right 14px center;
+  padding-right:38px;
+}
+
+/* Le chevron pivote quand le panneau est ouvert : le champ dit son état. */
+/* L'état ouvert coïncide avec :focus, dont les règles plus haut posent un
+   « background » en raccourci : il faut redonner ici la position et la
+   répétition, sinon le chevron repart en haut à gauche. */
+:is(.field, .search-bar, .sort) select.selectx-actif,
+select.selectx-actif{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 6l4.5-4.5L10 6' fill='none' stroke='%23b4512d' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  border-color:var(--primary);
+}
+.sort select.selectx-actif{background-position:right 10px center}
+
+/* Dans le héro, la barre est en encre translucide : chevron crème, pas gris. */
+.hero .search-bar select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' fill='none' stroke='%23f2e4d5' stroke-width='1.6' stroke-opacity='.66'/%3E%3C/svg%3E");
+  background-position:right 2px center;
+  padding-right:26px;
+}
+.hero .search-bar select.selectx-actif{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 6l4.5-4.5L10 6' fill='none' stroke='%23f2e4d5' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 2px center;
+  border-bottom-color:var(--cream);
+}
+.sort select{
+  background-position:right 10px center;
+  padding-right:32px;
+}
+
+/* ---------- 48.2 Le panneau ----------
+   Il est posé sur <body> en position fixe — un ancêtre en overflow:hidden ou
+   porteur d'un backdrop-filter (la barre du héro) le rognerait sinon. Ses
+   coordonnées sont calculées par le script. */
+.selectx-panel{
+  position:fixed;
+  z-index:200;
+  display:none;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:0;
+  box-shadow:0 18px 44px rgba(17,19,48,.16);
+}
+.selectx-panel.est-ouvert{
+  display:block;
+  animation:selectx-entre .16s var(--ease);
+}
+.selectx-panel.est-en-haut.est-ouvert{
+  animation-name:selectx-entre-haut;
+}
+@keyframes selectx-entre{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:none}
+}
+@keyframes selectx-entre-haut{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .selectx-panel.est-ouvert{animation:none}
+}
+.selectx-list{
+  list-style:none;
+  margin:0;
+  padding:5px 0;
+}
+.selectx-opt{
+  position:relative;
+  padding:9px 38px 9px 16px;
+  font-family:var(--font);
+  font-size:14.5px;
+  line-height:1.35;
+  color:var(--title);
+  cursor:pointer;
+}
+/* Surlignage : il suit le parcours, souris comme clavier. */
+.selectx-opt.est-actif{
+  background:var(--smoke);
+}
+/* Coche : elle marque le choix en vigueur, pas le survol. */
+.selectx-opt.est-choisi::after{
+  content:'';
+  position:absolute;
+  right:16px;
+  top:50%;
+  width:5px;
+  height:9px;
+  margin-top:-6px;
+  border:solid var(--primary);
+  border-width:0 1.8px 1.8px 0;
+  transform:rotate(43deg);
+}
+.selectx-opt.est-inactif{
+  color:var(--muted);
+  opacity:.55;
+  cursor:default;
+}
+.selectx-opt.est-inactif.est-actif{
+  background:none;
+}
+
+/* ---------- 48.3 Variante encre, sous la barre du héro ---------- */
+/* Le panneau y prolonge la barre translucide plutôt que d'y coller un aplat
+   blanc : même encre, même liseré crème. */
+.selectx-panel--ink{
+  background:rgba(23,25,36,.94);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-color:rgba(242,228,213,.24);
+  box-shadow:0 24px 60px rgba(10,11,16,.5);
+}
+.selectx-panel--ink .selectx-opt{
+  color:rgba(255,255,255,.88);
+}
+.selectx-panel--ink .selectx-opt.est-actif{
+  background:rgba(242,228,213,.13);
+  color:#fff;
+}
+.selectx-panel--ink .selectx-opt.est-choisi::after{
+  border-color:var(--cream);
+}
+.selectx-panel--ink .selectx-opt.est-inactif{
+  color:rgba(242,228,213,.45);
+}
+
+/* ---------- 48.4 Barre de défilement discrète ---------- */
+.selectx-panel{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.selectx-panel::-webkit-scrollbar{width:9px}
+.selectx-panel::-webkit-scrollbar-thumb{background:var(--border);border:3px solid #fff}
+.selectx-panel--ink{scrollbar-color:rgba(242,228,213,.3) transparent}
+.selectx-panel--ink::-webkit-scrollbar-thumb{background:rgba(242,228,213,.3);border-color:transparent}
+
+/* ---------- 48.5 Le champ de recherche du panneau ----------
+   Il n'apparaît qu'au-delà de huit options (seuil dans main.js) : dix-neuf
+   destinations ne se parcourent pas à l'œil, quatre durées si. Il reste collé
+   en haut pendant que la liste défile. */
+.selectx-search{
+  position:sticky;
+  top:0;
+  z-index:2;
+  padding:9px 10px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+}
+.selectx-input{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:0;
+  background:var(--smoke);
+  padding:8px 11px 8px 32px;
+  font-family:var(--font);
+  font-size:14px;
+  color:var(--title);
+  outline:0;
+  /* la loupe, dessinée plutôt qu'appelée : une icône de moins à charger */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 13 13'%3E%3Ccircle cx='5.4' cy='5.4' r='4.1' fill='none' stroke='%236f6a64' stroke-width='1.5'/%3E%3Cpath d='M8.6 8.6L12 12' stroke='%236f6a64' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:left 10px center;
+}
+.selectx-input::placeholder{color:var(--muted);opacity:1}
+.selectx-input:focus{
+  border-color:var(--primary);
+  background-color:#fff;
+}
+.selectx-opt.est-masque{display:none}
+.selectx-vide{
+  margin:0;
+  padding:16px;
+  font-size:14px;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* Variante encre, sous la barre du héro */
+.selectx-panel--ink .selectx-search{
+  background:rgba(23,25,36,.97);
+  border-bottom-color:rgba(242,228,213,.2);
+}
+.selectx-panel--ink .selectx-input{
+  background-color:rgba(242,228,213,.09);
+  border-color:rgba(242,228,213,.26);
+  color:#fff;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 13 13'%3E%3Ccircle cx='5.4' cy='5.4' r='4.1' fill='none' stroke='%23f2e4d5' stroke-width='1.5' stroke-opacity='.75'/%3E%3Cpath d='M8.6 8.6L12 12' stroke='%23f2e4d5' stroke-opacity='.75' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.selectx-panel--ink .selectx-input::placeholder{color:rgba(242,228,213,.6)}
+.selectx-panel--ink .selectx-input:focus{
+  border-color:var(--cream);
+  background-color:rgba(242,228,213,.14);
+}
+.selectx-panel--ink .selectx-vide{color:rgba(242,228,213,.66)}
+
+/* Le focus passe dans le champ de recherche : le <select> perd :focus, mais
+   il doit garder l'allure d'un champ ouvert. Dans le héro, les champs sont
+   aussi des .field : l'aplat blanc y rendrait le texte, blanc lui aussi,
+   illisible — la barre garde son fond transparent. */
+.field select.selectx-actif{background-color:#fff}
+.hero .search-bar select.selectx-actif{background-color:transparent}
+
+/* ==========================================================================
+   50. VISIONNEUSE
+   Voir « VISIONNEUSE » dans main.js pour le raisonnement. Le fond reprend
+   l'encre de la charte plutôt qu'un noir neutre : la photo s'y détache sans
+   que la page semble changer d'univers.
+   ========================================================================== */
+.gallery img{
+  cursor:zoom-in;
+  transition:opacity .3s var(--ease);
+}
+.gallery img:hover{opacity:.9}
+.gallery img:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+
+body.a-visionneuse{overflow:hidden}
+
+.visionneuse{
+  position:fixed;
+  inset:0;
+  z-index:300;              /* au-dessus des listes déroulantes (200) */
+  display:none;
+  place-items:center;
+  padding:clamp(16px,5vw,64px);
+  background:rgba(18,20,29,.94);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.visionneuse.est-ouverte{
+  display:grid;
+  animation:visionneuse-entre .2s var(--ease);
+}
+@keyframes visionneuse-entre{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  .visionneuse.est-ouverte{animation:none}
+}
+
+.visionneuse-scene{
+  margin:0;
+  display:grid;
+  gap:16px;
+  justify-items:center;
+  max-width:100%;
+  max-height:100%;
+}
+.visionneuse-scene img{
+  max-width:100%;
+  max-height:76vh;
+  width:auto;
+  object-fit:contain;
+  border-radius:0;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
+}
+.visionneuse figcaption{
+  display:flex;
+  gap:20px;
+  align-items:baseline;
+  justify-content:center;
+  flex-wrap:wrap;
+  text-align:center;
+}
+.visionneuse-legende{
+  font-size:15px;
+  color:rgba(255,255,255,.88);
+}
+.visionneuse-compte{
+  font-family:var(--font-data);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--cream);
+}
+
+/* ---------- Les trois commandes ---------- */
+.visionneuse button{
+  position:absolute;
+  border:1px solid rgba(242,228,213,.3);
+  background:rgba(242,228,213,.09);
+  color:var(--cream);
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  transition:background .25s var(--ease), border-color .25s var(--ease);
+}
+.visionneuse button:hover{
+  background:rgba(242,228,213,.2);
+  border-color:var(--cream);
+}
+.visionneuse button:focus-visible{
+  outline:2px solid var(--cream);
+  outline-offset:3px;
+}
+.visionneuse-fermer{
+  top:clamp(14px,3vw,28px);
+  right:clamp(14px,3vw,28px);
+  width:46px;
+  height:46px;
+  font-size:19px;
+}
+.visionneuse-prec,.visionneuse-suiv{
+  top:50%;
+  margin-top:-27px;
+  width:54px;
+  height:54px;
+  font-size:17px;
+}
+.visionneuse-prec{left:clamp(8px,2vw,28px)}
+.visionneuse-suiv{right:clamp(8px,2vw,28px)}
+/* Une seule flèche dans le jeu d'icônes : on retourne celle de gauche. */
+.visionneuse-prec i{transform:rotate(180deg)}
+
+@media (max-width:767px){
+  .visionneuse-prec,.visionneuse-suiv{
+    top:auto;
+    bottom:16px;
+    margin-top:0;
+    width:48px;
+    height:48px;
+  }
+  .visionneuse-scene img{max-height:64vh}
+}
+
+/* ==========================================================================
+   51. BARRE D'ONGLETS COLLANTE — fiche circuit
+   Les cinq onglets (Aperçu, Itinéraire, Tarifs, Carte, Avis) ouvrent des
+   panneaux longs : l'itinéraire jour par jour fait plusieurs écrans. Une fois
+   la barre sortie du champ, on ne pouvait plus changer d'onglet sans remonter.
+   Elle se colle donc sous l'en-tête compact (72 px, 64 px en dessous de 768).
+   ========================================================================== */
+/* ---------- 51.1 Débloquer position:sticky ----------
+   html et body portaient overflow-x:hidden, mis là pour empêcher un débordement
+   horizontal. Effet de bord peu connu : « hidden » fait du bloc une zone de
+   défilement, et position:sticky cesse alors de fonctionner pour toute sa
+   descendance. « clip » coupe pareillement le débordement sans créer cette
+   zone. Repli pour les navigateurs qui l'ignorent : on garde « hidden ». */
+@supports (overflow:clip){
+  html,body{overflow-x:clip}
+}
+
+:root{
+  --entete-collee:72px;
+}
+@media (max-width:767px){
+  :root{--entete-collee:64px}
+}
+
+/* La sentinelle sert à détecter le collage (voir main.js) ; elle n'occupe rien. */
+.tabs-temoin{height:0}
+
+.tabs-nav{
+  position:sticky;
+  top:var(--entete-collee);
+  z-index:40;                    /* sous l'en-tête (130) et les listes (200) */
+  background:var(--white);
+  transition:box-shadow .25s var(--ease), padding .25s var(--ease);
+}
+/* Collée, elle doit couvrir toute la largeur de sa colonne et se détacher du
+   texte qui passe dessous : d'où le débord latéral et l'ombre. */
+.tabs-nav.est-collee{
+  margin-inline:-14px;
+  padding-inline:14px;
+  box-shadow:0 10px 22px -14px rgba(17,19,48,.5);
+}
+
+/* Sous 768 px les cinq onglets passaient sur deux lignes : collés, ils
+   mangeaient 90 px de hauteur. Ils défilent désormais sur une seule ligne. */
+@media (max-width:767px){
+  .tabs-nav{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .tabs-nav::-webkit-scrollbar{display:none}
+  .tab{
+    flex:none;
+    padding-inline:16px;
+  }
+}
+
+/* ==========================================================================
+   52. LE SOMMAIRE REMPLACE LES ONGLETS
+   --------------------------------------------------------------------------
+   Aperçu, Itinéraire, Tarifs, Carte et Avis étaient cinq onglets : quatre
+   cinquièmes de la fiche restaient cachés derrière display:none. Trois défauts.
+   Le lecteur devait deviner qu'il y avait autre chose et cliquer pour l'obtenir.
+   Les moteurs de recherche voyaient un texte masqué — le programme jour par
+   jour, qui est la vraie matière de la page, ne pesait rien. Et la barre
+   collante n'avait presque pas de course, l'onglet Aperçu étant court.
+
+   Les cinq sections s'enchaînent désormais, et la barre devient un sommaire :
+   elle suit la lecture et met en avant la section où l'on se trouve. Les
+   onglets sont des liens d'ancre, donc ils fonctionnent sans JavaScript.
+   ========================================================================== */
+
+/* ---------- 52.1 Les sections s'enchaînent ---------- */
+/* display:block est posé à la source (section 24) : rien à écraser ici. */
+.tab-panel{
+  padding-top:38px;
+  /* Le saut d'ancre doit s'arrêter sous l'en-tête ET sous le sommaire collé,
+     sinon le titre visé passe derrière eux. */
+  scroll-margin-top:calc(var(--entete-collee) + 51px + 18px);
+}
+.tab-panel + .tab-panel{
+  border-top:1px solid var(--line);
+  margin-top:42px;
+}
+@media (max-width:767px){
+  .tab-panel{scroll-margin-top:calc(var(--entete-collee) + 45px + 14px)}
+}
+
+/* ---------- 52.2 La barre devient un sommaire ---------- */
+.tabs-nav a.tab{
+  text-decoration:none;
+  color:var(--muted);
+}
+.tabs-nav a.tab:hover{color:var(--title)}
+.tabs-nav a.tab.active,
+.tabs-nav a.tab[aria-current]{
+  color:var(--primary);
+  border-bottom-color:var(--primary);
+}
+/* Un lien reçoit le focus au clavier : le contour doit être celui de la charte,
+   pas le trait noir par défaut du navigateur. */
+.tabs-nav a.tab:focus-visible{
+  outline:2px solid var(--primary);
+  outline-offset:-4px;
+}
+
+/* ---------- 52.3 La course de la barre collante ----------
+   Aucune règle nouvelle ici, une conséquence à noter : la barre est collée à
+   l'intérieur de .tabs, dont la hauteur limitait sa course à 450 px tant que
+   quatre panneaux sur cinq étaient masqués. Les cinq sections étant désormais
+   dépliées, .tabs fait toute la fiche : la barre accompagne la lecture du
+   début de l'Aperçu à la fin des Avis, puis s'efface — exactement la portée
+   qu'on veut, sans qu'il faille l'étendre artificiellement. */
+
+/* ==========================================================================
+   53. LES COLONNES COLLANTES, MESURÉES
+   --------------------------------------------------------------------------
+   La section 51 a remplacé overflow-x:hidden par overflow-x:clip sur html et
+   body pour débloquer position:sticky. Effet non prévu : trois règles sticky
+   écrites bien plus tôt — jamais actives jusque-là, donc jamais vérifiées —
+   se sont réveillées d'un coup. Deux se comportaient mal.
+
+   La règle qui les gouverne toutes : un élément collé plus HAUT que la place
+   qu'on lui laisse à l'écran cache son propre bas, définitivement. Aucun
+   défilement ne le rattrape, puisqu'il ne bouge plus.
+   ========================================================================== */
+
+/* ---------- 53.1 Colonne de filtres (circuits) ----------
+   Mesurée à 1 781 px pour 828 px disponibles : une fois collée, les 950 px du
+   bas — budget, niveau, réinitialisation — devenaient inaccessibles. Elle garde
+   son suivi du défilement, mais avec sa propre hauteur d'écran et son propre
+   défilement interne. */
+/* Le seuil est 861 px, celui où la colonne cesse d'être un bandeau repliable
+   pour redevenir une colonne — la règle position:static de ce repli existe
+   déjà plus haut, inutile de la répéter. */
+@media (min-width:861px){
+  .filters{
+    max-height:calc(100vh - var(--entete-collee) - 44px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:thin;
+    scrollbar-color:var(--border) transparent;
+    padding-right:4px;
+  }
+  .filters::-webkit-scrollbar{width:8px}
+  .filters::-webkit-scrollbar-thumb{background:var(--border)}
+}
+
+/* ---------- 53.2 Encadré de réservation (fiche circuit) ----------
+   C'était .booking-box seul qui était collé, avec l'encadré « Besoin d'aide ? »
+   juste en dessous : le premier se figeait, le second continuait de monter, et
+   le titre venait se poser sur « Départ garanti ». Un élément collé garde sa
+   place dans le flux mais se peint plus bas qu'elle — ses frères suivants le
+   traversent donc forcément.
+
+   C'est la colonne entière qui se colle désormais, encadré d'aide compris :
+   ils voyagent ensemble, plus rien ne se chevauche. Et seulement quand elle
+   tient à l'écran — 819 px de contenu, plus 92 px sous l'en-tête et une marge
+   basse. En dessous, la colonne défile normalement, ce qui vaut mieux qu'un
+   bouton figé dont le bas serait coupé. À revérifier si le contenu de la
+   colonne s'allonge. */
+.row-detail > aside .booking-box{
+  position:static;
+}
+@media (min-height:940px) and (min-width:992px){
+  .row-detail > aside{
+    position:sticky;
+    top:92px;
+    align-self:start;
+  }
+}

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Réserver — Désert de Merzouga | Terra Sud Adventures</title>
+<meta name="description" content="Réservez votre départ : dates garanties, nombre de voyageurs, options et règlement.">
+<link rel="stylesheet" href="assets/css/style.css?v=5">
+</head>
+<body>
+
+<div class="site-top">
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-info">
+        <a href="mailto:contact@terrasudadventures.com"><i class="fa-solid fa-envelope"></i> contact@terrasudadventures.com</a>
+        <a href="tel:+212661348005"><i class="fa-solid fa-phone"></i> +212 661 34 80 05</a>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-social">
+          <a href="https://www.facebook.com/terrasudadventure/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/terrasudadventures/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/212661348005" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+        <div class="lang-switch">
+          <button type="button" class="lang-btn" aria-haspopup="listbox" aria-expanded="false">
+            <i class="fa-solid fa-globe"></i><span class="lang-current">Français</span><i class="fa-solid fa-chevron-down lang-caret"></i>
+          </button>
+          <ul class="lang-menu" role="listbox">
+          <li><button type="button" data-lang="fr" class="is-current">Français</button></li>
+          <li><button type="button" data-lang="en">English</button></li>
+          <li><button type="button" data-lang="es">Español</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo-white.png" alt="Terra Sud Adventures">
+      </a>
+      <nav class="nav">
+        <a href="index.html">Accueil</a>
+        <div class="nav-drop">
+          <a href="circuits.html?type=treks-randonnees">Treks &amp; Randonnées <i class="fa-solid fa-chevron-down"></i></a>
+          <div class="nav-sub">
+            <a href="activite.html">Massif du Toubkal &amp; Haut Atlas de Marrakech</a>
+            <a href="circuits.html?activite=massif-du-mgoun-haut-atlas-central">Massif du M’Goun &amp; Haut Atlas central</a>
+            <a href="circuits.html?activite=trekking-dans-les-massifs-de-saghro-siroua-region-de-tafraoute-anti-atlas">Saghro, Siroua &amp; vallées du Sud</a>
+            <a href="circuits.html?activite=trekking-dans-les-massifs-de-saghro-siroua-region-de-tafraoute-anti-atlas">Tafraoute &amp; Anti-Atlas</a>
+            <a href="circuits.html?activite=randonnees-dans-le-desert">Randonnées dans le désert</a>
+            <a href="circuits.html?activite=chefchaoun-rif">Chefchaouen &amp; Rif</a>
+            <a href="circuits.html?activite=fes-moyen-atlas">Fès &amp; Moyen Atlas</a>
+            <a href="circuits.html?activite=essaouira-randonnee-atlantique">Essaouira &amp; randonnée atlantique</a>
+            <a href="circuits.html?activite=la-grande-traversee-de-latlas-21-jours">La grande traversée de l’Atlas — 21 jours</a>
+          </div>
+        </div>
+        <a href="circuits.html?type=voyages-tours-prives">Voyages &amp; Tours privés</a>
+        <a href="circuits.html?type=excursions">Excursions</a>
+        <a href="circuits.html?type=themes-events">Thèmes &amp; Events</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-cta">
+        <a href="contact.html" class="btn">Réserver</a>
+        <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+</div>
+
+
+<section class="page-hero">
+  <div class="stamp"><span>Terra Sud</span><strong>Marrakech</strong><em>Maroc · ODV-10945</em></div>
+  <div class="container">
+    <h1>Réserver ce circuit</h1>
+    <ul class="breadcrumb">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="circuits.html">Circuits</a></li>
+      <li>Réserver</li>
+    </ul>
+  </div>
+</section>
+<section class="section booking-page">
+  <div class="container">
+
+    <nav aria-label="Progression de la réservation">
+    <ol class="stepper">
+      <li class="is-current" data-etape="1" aria-current="step"><button type="button"><span>Départ</span></button></li>
+      <li data-etape="2"><button type="button" disabled><span>Voyageurs</span></button></li>
+      <li data-etape="3"><button type="button" disabled><span>Informations</span></button></li>
+      <li data-etape="4"><button type="button" disabled><span>Paiement</span></button></li>
+    </ol>
+  </nav>
+
+    <p class="sr-only" role="status" aria-live="polite" id="annonce-etape"></p>
+    <form class="booking-layout" id="reservation" method="post" action="/api/reservation" data-form novalidate>
+      <input type="hidden" name="_token" value="">
+      <input type="hidden" name="sujet" value="reservation">
+      <input type="hidden" name="locale" value="fr">
+      <input type="hidden" name="circuit_slug" value="desert-de-merzouga-dunes-bivouac-vallees-du-sud">
+      <input type="hidden" name="circuit_titre" value="Désert de Merzouga : dunes, bivouac et vallées du Sud">
+      <div class="hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="site_web" tabindex="-1" autocomplete="off"></label></div>
+
+      <div class="booking-main">
+
+        <section class="etape is-current" data-etape="1" role="group" aria-label="Étape 1 sur 4 — Départ">
+          <span class="eyebrow">Étape 1</span>
+          <h2 class="sec-title">Choisissez votre date de départ</h2>
+          <p class="sec-text">Le prix varie selon la saison. Un départ est garanti dès quatre inscrits.</p>
+          <fieldset class="departs" aria-describedby="aide-departs">
+            <legend class="sr-only">Choisissez une date de départ</legend>
+          <label class="depart">
+            <input type="radio" name="depart" value="2027-03-14" data-prix="349" data-places="8" data-libelle="Dim. 14 mars 2027">
+            <span class="depart-date">Dim. 14 mars 2027</span>
+            <span class="depart-etat" data-etat="ok">Départ garanti</span>
+            <span class="depart-places">8 places</span>
+            <span class="depart-prix">349&nbsp;€</span>
+          </label>
+          <label class="depart">
+            <input type="radio" name="depart" value="2027-03-28" data-prix="349" data-places="3" data-libelle="Dim. 28 mars 2027">
+            <span class="depart-date">Dim. 28 mars 2027</span>
+            <span class="depart-etat" data-etat="warn">Dernières places</span>
+            <span class="depart-places">3 places</span>
+            <span class="depart-prix">349&nbsp;€</span>
+          </label>
+          <label class="depart">
+            <input type="radio" name="depart" value="2027-04-11" data-prix="379" data-places="12" data-libelle="Dim. 11 avril 2027">
+            <span class="depart-date">Dim. 11 avril 2027</span>
+            <span class="depart-etat" data-etat="ok">Départ garanti</span>
+            <span class="depart-places">12 places</span>
+            <span class="depart-prix">379&nbsp;€</span>
+          </label>
+          <label class="depart is-off">
+            <input type="radio" name="depart" value="2027-04-25" data-prix="379" data-places="0" data-libelle="Dim. 25 avril 2027" disabled>
+            <span class="depart-date">Dim. 25 avril 2027</span>
+            <span class="depart-etat" data-etat="off">Complet</span>
+            <span class="depart-places">—</span>
+            <span class="depart-prix">379&nbsp;€</span>
+          </label>
+          <label class="depart">
+            <input type="radio" name="depart" value="2027-05-09" data-prix="399" data-places="10" data-libelle="Dim. 9 mai 2027">
+            <span class="depart-date">Dim. 9 mai 2027</span>
+            <span class="depart-etat" data-etat="ok">Départ garanti</span>
+            <span class="depart-places">10 places</span>
+            <span class="depart-prix">399&nbsp;€</span>
+          </label>
+          <label class="depart">
+            <input type="radio" name="depart" value="2027-09-19" data-prix="379" data-places="14" data-libelle="Dim. 19 sept. 2027">
+            <span class="depart-date">Dim. 19 sept. 2027</span>
+            <span class="depart-etat" data-etat="">Inscriptions ouvertes</span>
+            <span class="depart-places">14 places</span>
+            <span class="depart-prix">379&nbsp;€</span>
+          </label>
+          </fieldset>
+          <p class="etape-note" id="aide-departs"><i class="fa-solid fa-circle-info"></i> Aucune date ne convient&nbsp;? <a href="contact.html">Demandez un départ privé</a> à la date de votre choix.</p>
+        </section>
+
+        <section class="etape" data-etape="2" role="group" aria-label="Étape 2 sur 4 — Voyageurs et options" hidden>
+          <span class="eyebrow">Étape 2</span>
+          <h2 class="sec-title">Voyageurs et options</h2>
+          <div class="pax">
+            <div class="pax-row" data-tarif="1">
+              <div class="pax-qui"><strong>Adultes</strong><span>12 ans et plus</span></div>
+              <div class="pax-prix" data-prix-de="adulte">—</div>
+              <div class="compteur">
+                <button type="button" data-pas="-1" aria-label="Retirer un adulte">−</button>
+                <input type="number" name="pax_adulte" value="2" min="1" max="16" readonly aria-live="polite" aria-label="Nombre d’adultes">
+                <button type="button" data-pas="1" aria-label="Ajouter un adulte">+</button>
+              </div>
+            </div>
+            <div class="pax-row" data-tarif="0.75">
+              <div class="pax-qui"><strong>Enfants</strong><span>4 à 11 ans — 25 % de réduction</span></div>
+              <div class="pax-prix" data-prix-de="enfant">—</div>
+              <div class="compteur">
+                <button type="button" data-pas="-1" aria-label="Retirer un enfant">−</button>
+                <input type="number" name="pax_enfant" value="0" min="0" max="10" readonly aria-live="polite" aria-label="Nombre d’enfants">
+                <button type="button" data-pas="1" aria-label="Ajouter un enfant">+</button>
+              </div>
+            </div>
+            <div class="pax-row" data-tarif="0">
+              <div class="pax-qui"><strong>Bébés</strong><span>moins de 4 ans — gratuit</span></div>
+              <div class="pax-prix">0&nbsp;€</div>
+              <div class="compteur">
+                <button type="button" data-pas="-1" aria-label="Retirer un bébé">−</button>
+                <input type="number" name="pax_bebe" value="0" min="0" max="4" readonly aria-live="polite" aria-label="Nombre de bébés">
+                <button type="button" data-pas="1" aria-label="Ajouter un bébé">+</button>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sous-titre">Options</h3>
+          <fieldset class="extras">
+            <legend class="sr-only">Options facultatives</legend>
+            <label class="extra">
+              <input type="checkbox" name="extra[]" value="chambre-individuelle" data-prix="85" data-unite="dossier">
+              <span class="extra-nom"><strong>Chambre individuelle</strong><span>Supplément pour l’ensemble du séjour</span></span>
+              <span class="extra-prix">+85&nbsp;€</span>
+            </label>
+            <label class="extra">
+              <input type="checkbox" name="extra[]" value="camp-de-luxe" data-prix="45" data-unite="personne">
+              <span class="extra-nom"><strong>Camp de luxe</strong><span>Tente privée avec salle de bain</span></span>
+              <span class="extra-prix">+45&nbsp;€ / pers.</span>
+            </label>
+            <label class="extra">
+              <input type="checkbox" name="extra[]" value="transfert-aeroport" data-prix="35" data-unite="dossier">
+              <span class="extra-nom"><strong>Transfert aéroport</strong><span>Aller-retour Marrakech-Ménara</span></span>
+              <span class="extra-prix">+35&nbsp;€</span>
+            </label>
+            <label class="extra">
+              <input type="checkbox" name="extra[]" value="location-materiel" data-prix="25" data-unite="personne">
+              <span class="extra-nom"><strong>Location du matériel</strong><span>Sac de couchage et bâtons</span></span>
+              <span class="extra-prix">+25&nbsp;€ / pers.</span>
+            </label>
+          </fieldset>
+        </section>
+
+        <section class="etape" data-etape="3" role="group" aria-label="Étape 3 sur 4 — Vos informations" hidden>
+          <span class="eyebrow">Étape 3</span>
+          <h2 class="sec-title">Vos informations</h2>
+          <h3 class="sous-titre">Personne à contacter</h3>
+          <div class="row g-2 champs-paire">
+            <div class="field"><label for="r-nom">Nom complet</label><input id="r-nom" name="nom" type="text" required></div>
+            <div class="field"><label for="r-mail">E-mail</label><input id="r-mail" name="email" type="email" required></div>
+            <div class="field"><label for="r-tel">Téléphone</label><input id="r-tel" name="telephone" type="tel" required></div>
+            <div class="field"><label for="r-pays">Pays de résidence</label><input id="r-pays" name="pays" type="text"></div>
+          </div>
+
+          <h3 class="sous-titre">Participants</h3>
+          <p class="sec-text champs-intro">Les noms doivent correspondre aux pièces d’identité. Vous pourrez les compléter plus tard depuis votre e-mail de confirmation.</p>
+          <div id="participants"></div>
+
+          <h3 class="sous-titre">À savoir</h3>
+          <div class="field">
+            <label for="r-notes">Régimes alimentaires, santé, souhaits particuliers</label>
+            <textarea id="r-notes" name="notes" placeholder="Allergies, végétarien, rythme souhaité…"></textarea>
+          </div>
+          <div class="field champs-suite">
+            <label for="r-urgence">Contact en cas d’urgence</label>
+            <input id="r-urgence" name="contact_urgence" type="text" placeholder="Nom et téléphone">
+          </div>
+        </section>
+
+        <section class="etape" data-etape="4" role="group" aria-label="Étape 4 sur 4 — Règlement" hidden>
+          <span class="eyebrow">Étape 4</span>
+          <h2 class="sec-title">Règlement</h2>
+          <h3 class="sous-titre">Ce que vous réglez maintenant</h3>
+          <fieldset class="choix">
+            <legend class="sr-only">Montant à régler maintenant</legend>
+            <label class="choix-item">
+              <input type="radio" name="reglement" value="acompte" checked data-part="0.3">
+              <span class="choix-nom"><strong>Acompte de 30 %</strong><b data-montant="acompte">—</b></span>
+              <em>Solde à régler 30 jours avant le départ</em>
+            </label>
+            <label class="choix-item">
+              <input type="radio" name="reglement" value="total" data-part="1">
+              <span class="choix-nom"><strong>Totalité du séjour</strong><b data-montant="total">—</b></span>
+              <em>Rien à régler ensuite</em>
+            </label>
+          </fieldset>
+
+          <h3 class="sous-titre">Moyen de paiement</h3>
+          <fieldset class="choix choix--compact">
+            <legend class="sr-only">Moyen de paiement</legend>
+            <label class="choix-item"><input type="radio" name="paiement" value="virement" checked><span class="choix-nom"><strong>Virement bancaire</strong></span><em>Coordonnées envoyées par e-mail</em></label>
+            <label class="choix-item"><input type="radio" name="paiement" value="carte"><span class="choix-nom"><strong>Carte bancaire</strong></span><em>Lien de paiement sécurisé</em></label>
+            <label class="choix-item"><input type="radio" name="paiement" value="agence"><span class="choix-nom"><strong>Sur place à l’agence</strong></span><em>Guéliz, Marrakech</em></label>
+          </fieldset>
+
+          <div class="field field--case">
+            <label class="opt opt--case">
+              <input type="checkbox" name="cgv" value="1" required>
+              <span>J’ai lu et j’accepte les <a href="conditions-de-vente.html">conditions de vente et d’annulation</a> ainsi que les <a href="mentions-legales.html">mentions légales</a>.</span>
+            </label>
+          </div>
+          <div class="field field--case">
+            <label class="opt opt--case">
+              <input type="checkbox" name="assurance_lue" value="1" required>
+              <span>J’ai noté qu’une assurance assistance et rapatriement est <strong>obligatoire</strong> et reste à ma charge.</span>
+            </label>
+          </div>
+        </section>
+
+        <div class="booking-nav">
+          <button type="button" class="btn btn-outline" data-nav="prec" hidden>Retour</button>
+          <button type="button" class="btn" data-nav="suiv">Continuer</button>
+          <button type="submit" class="btn" data-nav="envoyer" hidden>Confirmer la réservation</button>
+        </div>
+      </div>
+
+      <aside class="booking-aside">
+        <div class="recap">
+          <h3>Votre réservation</h3>
+          <p class="recap-circuit">Désert de Merzouga&nbsp;: dunes, bivouac et vallées du Sud<span>3 jours / 2 nuits — Marrakech → Merzouga</span></p>
+          <dl class="recap-lignes">
+            <div><dt>Départ</dt><dd data-recap="depart">À choisir</dd></div>
+            <div><dt>Voyageurs</dt><dd data-recap="pax">2 adultes</dd></div>
+          </dl>
+          <ul class="recap-detail" data-recap="detail"></ul>
+          <div class="recap-total"><span>Total</span><strong data-recap="total">—</strong></div>
+          <p class="recap-acompte">Acompte à régler&nbsp;: <strong data-recap="acompte">—</strong></p>
+          <p class="recap-note"><i class="fa-solid fa-lock"></i> Aucun prélèvement à cette étape. Nous vérifions les disponibilités avant toute demande de règlement.</p>
+        </div>
+      </aside>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo footer-logo">
+          <img src="assets/img/logo-white.png" alt="Terra Sud Adventures">
+        </a>
+        <p style="margin-top:20px">Terra Sud Services – Sarl. Agence de voyages à taille humaine basée à Marrakech : treks, randonnées, circuits privés et excursions sur mesure au Maroc.</p>
+        <div class="social">
+          <a href="https://www.facebook.com/terrasudadventure/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/terrasudadventures/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/212661348005" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul class="footer-list">
+          <li><a href="index.html"><i class="fa-solid fa-angle-right"></i>Accueil</a></li>
+          <li><a href="circuits.html?type=treks-randonnees"><i class="fa-solid fa-angle-right"></i>Treks &amp; randonnées</a></li>
+          <li><a href="circuits.html?type=voyages-tours-prives"><i class="fa-solid fa-angle-right"></i>Voyages privés</a></li>
+          <li><a href="destinations.html"><i class="fa-solid fa-angle-right"></i>Destinations</a></li>
+          <li><a href="a-propos.html"><i class="fa-solid fa-angle-right"></i>À propos</a></li>
+          <li><a href="pourquoi-partir-avec-nous.html"><i class="fa-solid fa-angle-right"></i>Pourquoi partir avec nous</a></li>
+          <li><a href="blog.html"><i class="fa-solid fa-angle-right"></i>Le carnet de route</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-angle-right"></i>Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Massifs &amp; régions</h4>
+        <ul class="footer-list">
+          <li><a href="circuits.html?activite=massif-du-toubkal-haut-atlas-de-marrakech"><i class="fa-solid fa-angle-right"></i>Toubkal &amp; Haut Atlas</a></li>
+          <li><a href="circuits.html?activite=massif-du-mgoun-haut-atlas-central"><i class="fa-solid fa-angle-right"></i>M’Goun &amp; Atlas central</a></li>
+          <li><a href="circuits.html?activite=trekking-dans-les-massifs-de-saghro-siroua-region-de-tafraoute-anti-atlas"><i class="fa-solid fa-angle-right"></i>Tafraoute &amp; Anti-Atlas</a></li>
+          <li><a href="circuits.html?activite=randonnees-dans-le-desert"><i class="fa-solid fa-angle-right"></i>Merzouga</a></li>
+          <li><a href="circuits.html?activite=chefchaoun-rif"><i class="fa-solid fa-angle-right"></i>Chefchaouen &amp; Rif</a></li>
+          <li><a href="circuits.html?activite=essaouira-randonnee-atlantique"><i class="fa-solid fa-angle-right"></i>Essaouira</a></li>
+          <li><a href="circuits.html?activite=fes-moyen-atlas"><i class="fa-solid fa-angle-right"></i>Fès &amp; villes impériales</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-contact">
+          <li><i class="fa-solid fa-location-dot"></i><span>Imm. Soufiane N°&nbsp;1, Appt N°&nbsp;10, 4<sup>e</sup> étage<br>Av. Yacoub El Mansour, Guéliz — Marrakech</span></li>
+          <li><i class="fa-solid fa-phone"></i><span>+212 661 34 80 05<br>+212 668 76 51 35</span></li>
+          <li><i class="fa-solid fa-envelope"></i><span>contact@terrasudadventures.com</span></li>
+          <li><i class="fa-solid fa-id-card"></i><span>Licence d’agence de voyages<br>ODV-10945</span></li>
+        </ul>
+        <form method="post" action="/api/newsletter" data-form novalidate class="newsletter">
+            <!-- Champs techniques : le backend les lit, l'utilisateur ne les voit pas. -->
+            <input type="hidden" name="_token" value=""><!-- jeton CSRF à injecter côté serveur -->
+            <input type="hidden" name="sujet" value="newsletter">
+            <input type="hidden" name="page" value="contact.html">
+            <input type="hidden" name="locale" value="fr">
+            <div class="hp" aria-hidden="true">
+              <label>Ne pas remplir<input type="text" name="site_web" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+          <input type="email" placeholder="Votre e-mail" required name="email">
+          <button type="submit" aria-label="S'inscrire"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Terra Sud Services – Sarl · Licence ODV-10945</span>
+      <span><a href="mentions-legales.html">Mentions légales</a> · <a href="conditions-de-vente.html">Conditions de vente</a> · <a href="pourquoi-partir-avec-nous.html">Pourquoi partir avec nous</a></span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="Haut de page"><i class="fa-solid fa-arrow-up"></i></button>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

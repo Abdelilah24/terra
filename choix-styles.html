@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terra Sud — Trois directions typographiques et chromatiques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Marcellus+SC&family=Karla:wght@300;400;500;700&family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Archivo:wght@400;500;600;700&family=Petrona:wght@300;400;500;700&family=Chivo:wght@300;400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#22242c;color:#fff;font-family:Karla,system-ui,sans-serif}
+.page-head{max-width:900px;margin:0 auto;padding:54px 24px 30px}
+.page-head h1{font-family:'Bodoni Moda',serif;font-size:clamp(28px,4vw,44px);margin:0 0 12px;font-weight:500}
+.page-head p{opacity:.72;line-height:1.7;margin:0;max-width:640px}
+.demo{padding:0 0 70px}
+.tag{display:block;max-width:1180px;margin:0 auto;padding:34px 24px 14px;
+     font:600 13px/1 Karla,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#8d8f9c}
+.frame{max-width:1180px;margin:0 auto;overflow:hidden;border:1px solid #33353f}
+.swatches{display:flex;max-width:1180px;margin:10px auto 0;gap:0}
+.swatches i{flex:1;height:34px;display:grid;place-items:center;font:500 10px/1 Karla,sans-serif;
+            letter-spacing:.1em;text-transform:uppercase;font-style:normal}
+
+/* ============================ Commun aux maquettes ============================ */
+.mock{padding:0}
+.mock .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 34px}
+.mock .brand{font-weight:700;letter-spacing:.02em}
+.mock .menu{display:flex;gap:24px;font-size:13px}
+.mock .cta{padding:12px 24px;border:0;cursor:default;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.mock .hero{padding:58px 34px 62px}
+.mock .eye{display:inline-flex;align-items:center;gap:13px;font-size:12px;letter-spacing:.24em;
+           text-transform:uppercase;margin-bottom:20px}
+.mock .eye b{font-weight:400;opacity:.5}
+.mock .eye span{width:44px;height:1px;background:currentColor;opacity:.5}
+.mock h2{margin:0 0 16px;font-size:clamp(32px,4.4vw,56px);line-height:1.06;max-width:15ch}
+.mock .lede{max-width:52ch;line-height:1.75;margin:0 0 26px;opacity:.82}
+.mock .cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;padding:0 34px 44px}
+.mock .card{padding:26px 24px}
+.mock .card .no{font-size:11px;letter-spacing:.2em;margin-bottom:16px;display:block}
+.mock .card h3{margin:0 0 10px;font-size:21px;line-height:1.2}
+.mock .card .meta{font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;opacity:.7}
+.mock .card .price{font-size:26px;letter-spacing:-.01em}
+.mock .card .price s{font-size:13px;opacity:.5;margin-left:8px}
+@media (max-width:780px){.mock .cards{grid-template-columns:1fr}.mock .bar .menu{display:none}}
+
+/* ============================ A — Crème & Sienne ============================ */
+.a{background:#f4efe6;color:#30291f;font-family:Karla,sans-serif}
+.a .bar{border-bottom:1px solid #ddd2c1}
+.a .brand{font-family:Marcellus,serif;font-size:23px;letter-spacing:.08em;text-transform:uppercase;color:#1e1b16}
+.a .menu{font-family:'Marcellus SC',serif;letter-spacing:.1em;font-size:14px;color:#5c5245}
+.a .cta{background:#a8442a;color:#f4efe6;font-family:'Marcellus SC',serif;letter-spacing:.16em}
+.a .hero{background:#f4efe6}
+.a .eye{color:#7d6a4f;font-family:'Marcellus SC',serif;letter-spacing:.2em}
+.a h2{font-family:Marcellus,serif;font-weight:400;color:#1e1b16;letter-spacing:-.005em}
+.a .lede{color:#5c5245}
+.a .cards{background:#ddd2c1}
+.a .card{background:#f4efe6}
+.a .card .no{font-family:'Marcellus SC',serif;color:#a8442a}
+.a .card h3{font-family:Marcellus,serif;font-weight:400;color:#1e1b16}
+.a .card .meta{color:#5a6650;font-family:'Marcellus SC',serif}
+.a .card .price{font-family:Marcellus,serif;color:#a8442a}
+
+/* ============================ B — Majorelle ============================ */
+.b{background:#fbfaf7;color:#22252e;font-family:Archivo,sans-serif}
+.b .bar{background:#2b37a4;color:#fff}
+.b .brand{font-family:'Bodoni Moda',serif;font-size:25px;font-weight:500;letter-spacing:.01em}
+.b .menu{letter-spacing:.1em;text-transform:uppercase;font-size:12px;font-weight:500;opacity:.9}
+.b .cta{background:#e0a020;color:#1b1c22;font-weight:600}
+.b .hero{background:#fbfaf7}
+.b .eye{color:#2b37a4;font-weight:600}
+.b h2{font-family:'Bodoni Moda',serif;font-weight:500;color:#141620}
+.b .lede{color:#4d515e}
+.b .cards{background:#e6e3dc}
+.b .card{background:#fbfaf7}
+.b .card:nth-child(2){background:#2b37a4;color:#fff}
+.b .card:nth-child(2) h3{color:#fff}
+.b .card .no{font-weight:600;color:#e0a020}
+.b .card h3{font-family:'Bodoni Moda',serif;font-weight:500;color:#141620}
+.b .card .meta{font-weight:500}
+.b .card .price{font-family:'Bodoni Moda',serif;font-weight:600;color:#2b37a4}
+.b .card:nth-child(2) .price{color:#e0a020}
+
+/* ============================ C — Argile & Nuit ============================ */
+.c{background:#faf7f2;color:#2a2b33;font-family:Chivo,sans-serif}
+.c .bar{background:#1b1d2a;color:#f2ece3}
+.c .brand{font-family:Petrona,serif;font-size:25px;font-weight:500}
+.c .menu{font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.c .cta{background:#c05a33;color:#fff;font-family:'Courier Prime',monospace;font-weight:700}
+.c .hero{background:#c05a33;color:#fdf6ef}
+.c .eye{color:#f6d8c0;font-family:'Courier Prime',monospace}
+.c h2{font-family:Petrona,serif;font-weight:500;color:#fff}
+.c .hero .lede{color:#fce4d4;opacity:1}
+.c .cards{background:#e3dbcf;padding-top:1px}
+.c .card{background:#faf7f2}
+.c .card .no{font-family:'Courier Prime',monospace;color:#c05a33;font-weight:700}
+.c .card h3{font-family:Petrona,serif;font-weight:500;color:#1b1d2a}
+.c .card .meta{font-family:'Courier Prime',monospace;color:#6b6d78;text-transform:none;letter-spacing:0}
+.c .card .price{font-family:Petrona,serif;font-weight:700;color:#c05a33}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Trois directions pour Terra&nbsp;Sud</h1>
+  <p>Même contenu, même structure. Seuls changent les polices et surtout la <em>façon dont la couleur est posée</em> — ce qui distingue le plus un site conçu sur mesure d'un rendu automatique. Aucune de ces polices ne figure parmi celles que les générateurs utilisent par défaut.</p>
+</div>
+
+<!-- ============================ A ============================ -->
+<section class="demo">
+  <span class="tag">Direction A — Crème &amp; Sienne · Marcellus + Karla</span>
+  <div class="frame mock a">
+    <div class="bar">
+      <span class="brand">Terra Sud</span>
+      <nav class="menu"><span>Accueil</span><span>Circuits</span><span>Journal</span><span>Contact</span></nav>
+      <span class="cta">Réserver</span>
+    </div>
+    <div class="hero">
+      <span class="eye"><b>I</b>Partons maintenant<span></span></span>
+      <h2>Explorez le Maroc et découvrez sa beauté</h2>
+      <p class="lede">Du désert d’Erg Chebbi aux sommets de l’Atlas, Terra Sud compose des voyages à votre rythme, avec des guides locaux et un accompagnement de bout en bout.</p>
+      <span class="cta">Nos circuits</span>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="no">Circuit I</span><h3>Désert de Merzouga</h3><p class="meta">3 jours · Marrakech</p><p class="price">2 400 MAD <s>3 200</s></p></div>
+      <div class="card"><span class="no">Circuit II</span><h3>Ascension du Toubkal</h3><p class="meta">2 jours · Imlil</p><p class="price">1 650 MAD <s>1 950</s></p></div>
+      <div class="card"><span class="no">Circuit III</span><h3>Villes impériales</h3><p class="meta">7 jours · Fès</p><p class="price">6 900 MAD <s>7 700</s></p></div>
+    </div>
+  </div>
+  <div class="swatches">
+    <i style="background:#f4efe6;color:#30291f">Parchemin</i>
+    <i style="background:#1e1b16;color:#f4efe6">Encre</i>
+    <i style="background:#a8442a;color:#fff">Sienne brûlée</i>
+    <i style="background:#5a6650;color:#fff">Olive</i>
+    <i style="background:#ddd2c1;color:#30291f">Lin</i>
+  </div>
+</section>
+
+<!-- ============================ B ============================ -->
+<section class="demo">
+  <span class="tag">Direction B — Majorelle · Bodoni Moda + Archivo</span>
+  <div class="frame mock b">
+    <div class="bar">
+      <span class="brand">Terra Sud</span>
+      <nav class="menu"><span>Accueil</span><span>Circuits</span><span>Journal</span><span>Contact</span></nav>
+      <span class="cta">Réserver</span>
+    </div>
+    <div class="hero">
+      <span class="eye"><b>01</b>Partons maintenant<span></span></span>
+      <h2>Explorez le Maroc et découvrez sa beauté</h2>
+      <p class="lede">Du désert d’Erg Chebbi aux sommets de l’Atlas, Terra Sud compose des voyages à votre rythme, avec des guides locaux et un accompagnement de bout en bout.</p>
+      <span class="cta">Nos circuits</span>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="no">N°01</span><h3>Désert de Merzouga</h3><p class="meta">3 jours · Marrakech</p><p class="price">2 400 MAD <s>3 200</s></p></div>
+      <div class="card"><span class="no">N°02</span><h3>Ascension du Toubkal</h3><p class="meta">2 jours · Imlil</p><p class="price">1 650 MAD <s>1 950</s></p></div>
+      <div class="card"><span class="no">N°03</span><h3>Villes impériales</h3><p class="meta">7 jours · Fès</p><p class="price">6 900 MAD <s>7 700</s></p></div>
+    </div>
+  </div>
+  <div class="swatches">
+    <i style="background:#fbfaf7;color:#22252e">Blanc cassé</i>
+    <i style="background:#2b37a4;color:#fff">Bleu Majorelle</i>
+    <i style="background:#e0a020;color:#1b1c22">Ocre safran</i>
+    <i style="background:#141620;color:#fff">Nuit</i>
+    <i style="background:#e6e3dc;color:#22252e">Chaux</i>
+  </div>
+</section>
+
+<!-- ============================ C ============================ -->
+<section class="demo">
+  <span class="tag">Direction C — Argile &amp; Nuit · Petrona + Chivo + Courier Prime</span>
+  <div class="frame mock c">
+    <div class="bar">
+      <span class="brand">Terra Sud</span>
+      <nav class="menu"><span>Accueil</span><span>Circuits</span><span>Journal</span><span>Contact</span></nav>
+      <span class="cta">Réserver</span>
+    </div>
+    <div class="hero">
+      <span class="eye"><b>[01]</b>Partons maintenant<span></span></span>
+      <h2>Explorez le Maroc et découvrez sa beauté</h2>
+      <p class="lede">Du désert d’Erg Chebbi aux sommets de l’Atlas, Terra Sud compose des voyages à votre rythme, avec des guides locaux et un accompagnement de bout en bout.</p>
+      <span class="cta">Nos circuits</span>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="no">N°01</span><h3>Désert de Merzouga</h3><p class="meta">3 jours · Marrakech</p><p class="price">2 400 MAD <s>3 200</s></p></div>
+      <div class="card"><span class="no">N°02</span><h3>Ascension du Toubkal</h3><p class="meta">2 jours · Imlil</p><p class="price">1 650 MAD <s>1 950</s></p></div>
+      <div class="card"><span class="no">N°03</span><h3>Villes impériales</h3><p class="meta">7 jours · Fès</p><p class="price">6 900 MAD <s>7 700</s></p></div>
+    </div>
+  </div>
+  <div class="swatches">
+    <i style="background:#faf7f2;color:#2a2b33">Sable</i>
+    <i style="background:#c05a33;color:#fff">Argile</i>
+    <i style="background:#1b1d2a;color:#f2ece3">Nuit</i>
+    <i style="background:#e3dbcf;color:#2a2b33">Terre claire</i>
+    <i style="background:#6b8f71;color:#fff">Palmeraie</i>
+  </div>
+</section>
+
+</body>
+</html>
