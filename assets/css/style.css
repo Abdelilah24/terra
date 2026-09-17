@@ -36,6 +36,7 @@
    .counter strong                    L1312  L1655  L2073
    .feature                           L716  L1995  L3382
    .feature h3                        L725  L2000  L3315
+   .filters                           L2294  L2499  L6073
    .filters form                      L2298  L3090  L3150
    .filters-head h3                   L2311  L3093  L3159
    .footer-grid                       L1387  L1495  L1583
@@ -69,7 +70,6 @@
    .atlas-split                       L3496  L3585
    .atlas-svg--zoom                   L4540  L4575
    .badge-off                         L831  L3260
-   .bg-smoke + .section               L3703  L3719
    ======================================================================== */
 
 /* ==========================================================================
@@ -6174,3 +6174,108 @@ body.a-visionneuse{overflow:hidden}
     align-self:start;
   }
 }
+
+/* ==========================================================================
+   54. LA PAGE RESPIRE
+   --------------------------------------------------------------------------
+   Constat mesuré : un tiers à la moitié de chaque page était une surface
+   sombre — 41 % sur l'accueil (héro 14,5 + section encre 10,6 + pied 10 +
+   offre 6), 76 % sur la page des destinations. Passer sans cesse du sombre au
+   clair fatigue, et surtout : les photographies ne servaient à rien, noyées
+   sous un voile d'encre à 78 ou 86 %. Pour une agence de voyage, c'est
+   l'inverse de ce qu'on veut — le paysage est l'argument.
+
+   La contrainte à respecter : du texte blanc sur une photo QUELCONQUE, donc
+   potentiellement très claire, exige un voile d'au moins 59 % d'encre pour
+   tenir le seuil AA. Le calcul : (1-α)×255 + α×23 ≤ 118. On allège donc
+   partout où il n'y a pas de texte, et on reste au-dessus de ce plancher là
+   où il y en a. Vérifié en remplaçant chaque photo par du blanc pur — le pire
+   cas possible — et en mesurant les pixels rendus.
+   ========================================================================== */
+
+/* ---------- 54.1 Le héro de l'accueil ----------
+   L'ancien dégradé descendait à 90 % d'encre en bas : un quart d'écran presque
+   noir juste au-dessus de la ligne de flottaison, alors que la barre de
+   recherche qui s'y trouve porte déjà son propre fond encre. Et il tombait à
+   34 % au tiers de la hauteur — là où se trouve le titre, qui n'était donc
+   lisible que par chance, la photo se trouvant sombre.
+   Relevé des bandes de texte : sur-titre 23 %, titre 27-41 %, accroche 43-50 %
+   (12-35 % sur mobile). Le voile tient donc son plancher de 66 % de 10 à 56 %,
+   et se relâche au-dessus et en dessous. */
+.hero{
+  background:linear-gradient(180deg,
+      rgba(18,19,27,.46) 0%,
+      rgba(18,19,27,.66) 10%,
+      rgba(18,19,27,.66) 56%,
+      rgba(18,19,27,.44) 100%),
+    url('https://picsum.photos/seed/terra-hero/1920/1100') center/cover no-repeat;
+}
+
+/* ---------- 54.2 Les bandeaux des pages intérieures ----------
+   Voile plat à 78-80 % : la photo était invisible, il ne restait qu'une bande
+   noire de 400 px en tête de huit pages. Titre 49-65 %, fil d'Ariane 67-74 %,
+   cachet jusqu'à 97 % : le haut, lui, ne porte rien — c'est là qu'on relâche,
+   et la photographie réapparaît derrière le menu transparent. */
+.page-hero{
+  background:linear-gradient(180deg,
+      rgba(23,24,34,.34) 0%,
+      rgba(23,24,34,.40) 34%,
+      rgba(23,24,34,.66) 46%,
+      rgba(23,24,34,.68) 100%) center/cover,
+    url('https://picsum.photos/seed/terrasud-banner/1600/700') center/cover no-repeat;
+}
+
+/* ---------- 54.3 Les cartes de destination ----------
+   Le voile montait à 86 % tout en bas et ne valait que 14 % au milieu : le nom
+   du lieu était donc posé sur du presque rien, et seule la noirceur des photos
+   le sauvait. Sur la page des destinations, ces cartes occupent 30 % de la
+   surface. Le dégradé descend maintenant plus tôt jusqu'à son plancher, et
+   s'arrête plus clair : plus lisible ET plus légère.
+   Le texte commence à 50 % de la carte en grand écran, à 28 % en petit —
+   d'où les deux réglages. */
+.dcard::after{
+  background:linear-gradient(180deg,
+    rgba(18,19,27,0) 0%,
+    rgba(18,19,27,.12) 36%,
+    rgba(18,19,27,.66) 48%,
+    rgba(18,19,27,.72) 100%);
+}
+@media (max-width:767px){
+  .dcard::after{
+    background:linear-gradient(180deg,
+      rgba(18,19,27,0) 0%,
+      rgba(18,19,27,.28) 16%,
+      rgba(18,19,27,.66) 27%,
+      rgba(18,19,27,.72) 100%);
+  }
+}
+/* Cartes du héro : le nom descend jusqu'à 58 % de la carte en écran moyen. */
+.hero-card::after{
+  background:linear-gradient(180deg,
+    rgba(18,19,27,0) 0%,
+    rgba(18,19,27,.18) 44%,
+    rgba(18,19,27,.66) 56%,
+    rgba(18,19,27,.74) 100%);
+}
+
+/* ---------- 54.4 Le bandeau d'offre passe au crème ----------
+   Quatre aplats encre par page — en-tête, offre, section carte, pied — c'est un
+   de trop : le regard n'a plus de repos entre eux. L'offre prend le crème de la
+   charte, troisième couleur jusqu'ici réduite à quelques filets. Elle garde
+   tout son poids visuel, sans ajouter de noir. */
+.offer{
+  background:var(--cream);
+  color:var(--title);
+}
+.offer h2,.offer h3,.offer h4{color:var(--title)}
+.offer p{color:#4a4744}
+/* La terre cuite de la charte ne donne que 4,05:1 sur le crème : il lui faut
+   une nuance plus dense sur ce fond-là, et là seulement. */
+.offer .eyebrow,
+.offer .counter strong{color:#a84c2a}
+.offer .counter span{color:#6a655e}
+/* Le bouton de ce bandeau était crème sur encre. Sur le crème il disparaissait :
+   il reprend la terre cuite, comme partout ailleurs sur fond clair. */
+.offer .btn{background:var(--primary);color:#fff}
+.offer .btn:hover{background:var(--primary-dark);color:#fff}
+.offer::after{background:rgba(168,76,42,.12)}

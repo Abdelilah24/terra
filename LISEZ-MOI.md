@@ -386,6 +386,104 @@ alors de fonctionner pour **toute** sa descendance — silencieusement. `clip`
 coupe le débordement sans créer cette zone ; la section 51 fait la bascule, avec
 repli sur `hidden` pour les navigateurs qui l'ignorent.
 
+### 7. Les colonnes collantes, mesurées (section 53)
+
+Débloquer `position:sticky` (section 51) a eu une conséquence imprévue : **trois
+règles `sticky` écrites bien plus tôt dans le projet, jamais actives jusque-là
+et donc jamais vérifiées, se sont réveillées d'un coup.** Deux se comportaient
+mal. C'est le risque propre à une correction qui lève un blocage général : elle
+ne change pas seulement ce qu'on visait.
+
+La règle qui les gouverne toutes : **un élément collé plus haut que la place
+qu'on lui laisse à l'écran cache son propre bas, définitivement.** Il ne bouge
+plus, donc aucun défilement ne le rattrape.
+
+| | Hauteur | Place à l'écran | Verdict |
+|---|---|---|---|
+| `.head-col` (accueil) | 392 px | 828 px | tient — conservé tel quel |
+| `.booking-box` (fiche) | 509 px | 828 px | tient, mais **chevauchait** (voir ci-dessous) |
+| `.filters` (circuits) | 1 781 px | 828 px | **950 px inaccessibles** |
+
+**L'encadré de réservation.** C'était `.booking-box` seul qui était collé, avec
+« Besoin d'aide ? » juste en dessous. Le premier se figeait, le second continuait
+de monter, et son titre venait se poser sur « Départ garanti ». Ce n'est pas un
+accident : un élément collé garde sa place dans le flux mais se peint plus bas
+qu'elle, donc ses frères suivants le traversent nécessairement. C'est la colonne
+entière qui se colle désormais — encadré d'aide compris, ils voyagent ensemble —
+et seulement quand elle tient à l'écran (819 px de contenu ; en dessous de
+940 px de hauteur de fenêtre, la colonne défile normalement, ce qui vaut mieux
+qu'un bouton figé dont le bas serait coupé). **À revérifier si le contenu de
+cette colonne s'allonge.**
+
+**La colonne de filtres.** Une fois collée, les 950 px du bas — budget, niveau,
+réinitialisation — devenaient inaccessibles : mesuré, le dernier bloc restait
+bloqué à y = 1 672 quoi qu'on fasse. Elle garde son suivi du défilement mais
+avec sa propre hauteur d'écran et son propre défilement interne.
+
+Deux contrôles ont été ajoutés à la vérification et resteront :
+
+- **aucun élément collé plus haut que sa place**, sauf s'il défile en interne ;
+- **aucun chevauchement** entre un élément collé et ses frères suivants (en
+  exigeant un recouvrement horizontal, faute de quoi deux colonnes côte à côte
+  se signalent l'une l'autre).
+
+### 8. La page respire (section 54)
+
+Remarque du client : « le site paraît sombre ». Première réaction : ce sont les
+couleurs assombries pour les contrastes (section 47). **Mesure : faux.** En
+comparant la luminance moyenne des pages rendues avant et après ce changement de
+palette, l'écart est de **0,13 sur 255, soit 0,08 %** — invisible. L'intuition
+était bonne, la cause était ailleurs.
+
+Le relevé des surfaces l'a montrée : **un tiers à la moitié de chaque page était
+une surface sombre.**
+
+| Page | Aplats et voiles sombres |
+|---|---|
+| Accueil | 41 % (héro 14,5 + section carte 10,6 + pied 10 + offre 6) |
+| Destinations | 76 % (cartes 29,6 + pied 18,3 + section encre 16,9 + bandeau 11,5) |
+| Blog, contact | 36 % (pied 22 + bandeau 14) |
+
+Et surtout : les photographies ne servaient à rien, noyées sous un voile d'encre
+à 78 % sur les bandeaux, 86 % au bas des cartes. Pour une agence de voyage, c'est
+l'inverse de ce qu'on veut — **le paysage est l'argument de vente.**
+
+**La contrainte.** On ne peut pas simplement éclaircir : du texte blanc sur une
+photo *quelconque*, donc potentiellement très claire, exige un voile d'au moins
+**59 % d'encre** pour tenir le seuil AA. Le calcul : (1−α)×255 + α×23 ≤ 118.
+D'où la méthode : relever où se trouve le texte dans chaque bloc, tenir le
+plancher **là et seulement là**, relâcher partout ailleurs.
+
+| Bloc | Bande de texte relevée | Avant | Après |
+|---|---|---|---|
+| Héro accueil | 10 – 56 % de la hauteur | 68 % en haut, **34 % au titre**, 90 % en bas | 66 % sur la bande, 46 % et 44 % aux extrémités |
+| Bandeau des pages | 46 – 100 % | 78-80 % plat | 34 % en haut, 66 % sur la bande |
+| Carte destination | dès 28 % (mobile) | **14 % au milieu**, 86 % en bas | 66 % dès la bande, 72 % en bas |
+
+Les valeurs en gras signalent un défaut qui existait déjà : le titre du héro et
+le nom des destinations étaient posés sur un voile trop faible, et n'étaient
+lisibles que par la grâce de photos sombres. Une seule photo claire et ils
+disparaissaient. C'est corrigé du même geste.
+
+**Le bandeau d'offre passe au crème.** Quatre aplats encre par page — en-tête,
+offre, section carte, pied — c'est un de trop : le regard n'a plus de repos
+entre eux. L'offre prend le crème de la charte, troisième couleur jusqu'ici
+réduite à quelques filets, et son bouton reprend la terre cuite.
+
+**Résultat mesuré** (photo neutre substituée aux vignettes de démonstration,
+sans quoi la mesure serait faussée par des images sombres) :
+
+```
+luminance moyenne   164,4 → 173,6   (+5,6 %)
+pixels très sombres  37,3 % → 32,3 %
+dont à-propos       167,1 → 192,6   (+15,2 %)   très sombres 40,5 % → 26,1 %
+```
+
+**Vérification du pire cas.** Toutes les photos remplacées par du blanc pur — la
+situation la plus défavorable possible — puis mesure au pixel des 142 zones de
+texte posées sur une image : **0 sous le seuil**. Avant ce travail, le même test
+en signalait 8.
+
 ### Ce que le gabarit Travolo n'a pas apporté
 
 Le code source complet du gabarit a été examiné (`demo/`). Rien n'en a été repris,
